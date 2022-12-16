@@ -15,7 +15,7 @@
     font-size:14px ;
     color: #282c3f;
     align-items: center;
-    margin-right: 5px;
+    margin-right: 4px;
     margin-left: 5px;
 }
 .search{
@@ -28,7 +28,7 @@
     align-items: center;
     justify-content: space-around;
     gap:25px;
-    margin-left: 25px;
+    margin-left: 20px;
 }
 .form{
     width: 250px;
@@ -43,7 +43,7 @@
 }
 .homegrid>div{
     width:100%;
-  
+ 
    
    margin-top: 10px;
    

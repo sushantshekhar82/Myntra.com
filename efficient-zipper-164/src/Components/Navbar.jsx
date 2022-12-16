@@ -17,7 +17,7 @@ function NavbarHome() {
   return (
     <Navbar bg="light" expand="lg" sticky="top">
       <Container fluid>
-        <Navbar.Brand href="#"> <Link className='link' to="/"><Img src="https://gumlet.assettype.com/afaqs%2F2021-01%2F15f5f827-8e29-4520-af8d-a0f353b8da17%2Fimages.png?auto=format%2Ccompress&w=360&dpr=2.6" alt="myntra" width="53px" height="53px"/></Link></Navbar.Brand>
+        <Navbar.Brand href="#"> <Link className='link' to="/"><Img src="https://constant.myntassets.com/web/assets/img/icon.5d108c858a0db793700f0be5d3ad1e120a01a500_2021.png" alt="myntra" width="53px" height="53px"/></Link></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
     <div className='nav1'>
