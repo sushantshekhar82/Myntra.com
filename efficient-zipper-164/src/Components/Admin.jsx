@@ -3,30 +3,30 @@ import  { useState } from 'react'
 
 function Admin() {
     const [name,setName]=useState("");
-    const [age,setAge]=useState("");
-    const [email,setEmail]=useState("");
+    const [link,setlink]=useState("");
+    const [desc,setdesc]=useState("");
     const handleSubmit=async(e)=>{
         e.preventDefault()
-        let res=await fetch(`https://render-mock-server-7ng4.onrender.com/men`,{
+        let res=await fetch(`https://render-mock-server-7ng4.onrender.com/temphome`,{
             method:"POST",
             headers: {
                 "Content-type": "application/json"
               },
-            body:JSON.stringify({name,age,email})
+            body:JSON.stringify({name,link,desc})
         })
         alert("posted")
-       setAge("")
+       setlink("")
        setName("")
-       setEmail("")
+       setdesc("")
     }
   return (
     <div>
         <br/>
         <br/>
         <form>
-        <input value={name} onChange={(e)=>setName(e.target.value)} type="name" placeholder='enter name'/><br/>
-        <input value={age} onChange={(e)=>setAge(e.target.value)} type="number" placeholder="enter age"/><br/>
-      <input value={email} onChange={(e)=>setEmail(e.target.value)} type="email" placeholder="enter email"/><br/>
+        <input value={name} onChange={(e)=>setName(e.target.value)} type="text" placeholder='enter name'/><br/>
+        <input value={link} onChange={(e)=>setlink(e.target.value)} type="text" placeholder="enter link"/><br/>
+      <input value={desc} onChange={(e)=>setdesc(e.target.value)} type="text" placeholder="enter desc"/><br/>
       <input onClick={handleSubmit} type="submit"/>
       </form>
     </div>

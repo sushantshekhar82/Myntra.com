@@ -10,6 +10,9 @@ import "../project.css";
 import { Search2Icon } from '@chakra-ui/icons'
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { Badge } from '@chakra-ui/react';
+import { Grid, GridItem } from '@chakra-ui/react'
+
+
 function NavbarHome() {
   return (
     <Navbar bg="light" expand="lg" sticky="top">
@@ -80,6 +83,7 @@ function NavbarHome() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    
   )
 }
 

@@ -33,3 +33,18 @@
 .form{
     width: 250px;
 }
+.homegrid{
+    display: grid;
+    grid-template-rows: 400px 400px 400px;
+    justify-content: space-around;
+    gap: 10;
+   
+    margin-top: 5px;
+}
+.homegrid>div{
+    width:100%;
+  
+   
+   margin-top: 10px;
+   
+}
