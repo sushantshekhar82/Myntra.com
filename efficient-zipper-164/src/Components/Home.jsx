@@ -10,25 +10,31 @@ const [data,setData]=useState([])
   const [data1,setData1]=useState([])
   const [data2,setData2]=useState([])
     const [index, setIndex] = useState(0);
-  
+  const [loading,setLoading]=useState(false)
     const handleSelect = (selectedIndex, e) => {
       setIndex(selectedIndex);
     };
   
   const getData=async()=>{
+    setLoading(true)
   let res=await fetch('https://render-mock-server-7ng4.onrender.com/home1');
  let data=await res.json();
     setData(data)
+    setLoading(false)
   }
   const getData1=async()=>{
+    setLoading(true)
     let res=await fetch('https://render-mock-server-7ng4.onrender.com/home2');
    let data=await res.json();
       setData1(data)
+      setLoading(false)
     }
     const getData2=async()=>{
+      setLoading(true)
       let res=await fetch('https://render-mock-server-7ng4.onrender.com/home3');
      let data=await res.json();
         setData2(data)
+        setLoading(false)
       }
   useEffect(()=>{
   getData()
@@ -36,6 +42,9 @@ const [data,setData]=useState([])
   getData2()
   },[])
   console.log(data)
+  if(loading){
+    return <img style={{display:"flex",alignItems:"center",justifyContent:"center",margin:"auto"}} width="300px" height="300px"  src="https://www.appcoda.com/learnswiftui/images/animation/swiftui-animation-4.gif" alt="progress"/>
+  }
   return (
     <>  
     <div style={{width:"100%",height:"400px"}}> <Carousel activeIndex={index} onSelect={handleSelect}>
