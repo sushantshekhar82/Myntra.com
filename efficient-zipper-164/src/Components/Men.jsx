@@ -4,15 +4,45 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  BreadcrumbSeparator,
+  
   Text,
   Checkbox,Img
 } from '@chakra-ui/react'
 import {ChevronRightIcon} from "@chakra-ui/icons"
 import Footer from './Footer'
 import { useState } from 'react'
+import "../project.css";
+import { useToast } from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
 function Men() {
-  const [value, setValue] = useState('1')
+  const [value, setValue] = useState('1');
+  const [value1,setValue1]=useState('1')
+  const [color,setColor]=useState(false)
+  const toast = useToast()
+
+const handleWishlist=()=>{
+  setColor(!color);
+  {
+    color? toast({
+      title: 'Item removed from wishlist',
+      
+      status: 'error',
+      duration: 5000,
+      isClosable: true,
+    })
+    :
+    toast({
+      title: 'Item added in wishlist',
+      
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    })
+   
+  }
+  
+}
+
   return (
     <div>
       <div><Breadcrumb marginLeft={"15px"} spacing='8px' separator={<ChevronRightIcon color='gray.500' />}>
@@ -35,17 +65,17 @@ function Men() {
   
   <div style={{marginLeft:"15px",marginTop:"10px"}}>
     <Text as={"b"}>CATEGORIES</Text><br/>
-  <Checkbox size='md' colorScheme='pink' >
-    Tshirt
-  </Checkbox>
-  
-  </div>
-  <div style={{marginLeft:"15px",marginTop:"2px"}}>
-  <Checkbox size='md' colorScheme='pink' >
-    Jeans
-  </Checkbox>
-  
-  </div>
+    <RadioGroup onChange={setValue1} value={value1}>
+      <Stack direction='column'>
+        <Radio value='1'>Tshirt</Radio>
+        <Radio value='2'>Jeans</Radio>
+        <Radio value='3'>Shoes</Radio>
+        <Radio value='4'>Kurtas & Kurta sets</Radio>
+        <Radio value='5'>Boxers</Radio>
+       
+      </Stack>
+    </RadioGroup>
+    </div>
   <Divider margin={"5px"}/>
   
   
@@ -177,17 +207,32 @@ function Men() {
     </RadioGroup>
     </div>
   </GridItem>
-  <GridItem w='100%' h='auto'  >
-    <div>
-      <div>
-        <Img width={"220px"} height={"300px"} src="https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/2275365/2022/11/22/a3af8a2f-a385-4cb7-bf7b-e34e0925fe0d1669105782439-Roadster-Men-White--Pure-Cotton-T-shirt-7301669105781913-1.jpg"/>
+  <GridItem w='100%' h='auto' className='poductgrid'  >
+  
+  <div  style={{width:"250px",height:"300px"}}>
+      <div style={{position:"relative",width:"250px",height:"300px"}}>
+        <div className='zoom'>
+        <Img width={"210px"} height={"290px"} src="https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/2275365/2022/11/22/a3af8a2f-a385-4cb7-bf7b-e34e0925fe0d1669105782439-Roadster-Men-White--Pure-Cotton-T-shirt-7301669105781913-1.jpg"/>
+       </div>
+         <div  className="rating">
+     <Flex>  <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="blue" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><Text as="b">4</Text></Flex> 
+      </div> 
+      <div  className="wishlist">
+
+     <div style={{cursor:"pointer"}} onClick={handleWishlist} >  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill={color?"red":"wheat"} stroke="currentColor" stroke-width="0" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+     </div>
+       </div>
       </div>
-      <div>
+      <Link to={`/products/id`}> <div>
         <Text as={"b"}>Roadster</Text>
         <Text >Pure Cotton Tshirt</Text>
        <Flex> <Text as={"b"}>Rs 224</Text><Text color={"orange"}>(50% OFF)</Text></Flex>
+      
       </div>
+      </Link>
     </div>
+    
+    
   </GridItem>
   
 </Grid>

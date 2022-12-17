@@ -48,3 +48,32 @@
    margin-top: 10px;
    
 }
+.rating{
+ position: relative;
+ bottom: 25px;
+ left: 5px; 
+ background-color: white;
+ width: 30px;
+ height: 20px;
+
+
+}
+.wishlist{
+    position: relative;
+    bottom: 300px; 
+    left: 180px;
+}
+
+.zoom:hover{
+    transform: scale(1.03); 
+ 
+}
+.poductgrid{
+    display: grid;
+    grid-template-columns:repeat(4,1fr);
+    gap: 5px;
+
+}
+/* .poductgrid>div{
+   
+} */
