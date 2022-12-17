@@ -21,15 +21,20 @@ function Men() {
   const [color,setColor]=useState(false)
   const toast = useToast();
   const [data,setData]=useState([])
+  const [loading,setLoading]=useState(false)
   const getData=async()=>{
+    setLoading(true)
     let res=await fetch(`https://render-mock-server-7ng4.onrender.com/Products`);
       let data=await res.json();
       setData(data);
-    
+    setLoading(false)
   }
   useEffect(()=>{
     getData()
   },[])
+  if(loading){
+    return <img style={{display:"flex",alignItems:"center",justifyContent:"center",margin:"auto"}} width="300px" height="300px"  src="https://www.appcoda.com/learnswiftui/images/animation/swiftui-animation-4.gif" alt="progress"/>
+  }
 console.log(data)
 const handleWishlist=()=>{
   setColor(!color);
