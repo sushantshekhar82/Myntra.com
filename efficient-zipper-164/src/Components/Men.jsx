@@ -14,12 +14,23 @@ import { useState } from 'react'
 import "../project.css";
 import { useToast } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
 function Men() {
   const [value, setValue] = useState('1');
   const [value1,setValue1]=useState('1')
   const [color,setColor]=useState(false)
-  const toast = useToast()
-
+  const toast = useToast();
+  const [data,setData]=useState([])
+  const getData=async()=>{
+    let res=await fetch(`https://render-mock-server-7ng4.onrender.com/Products`);
+      let data=await res.json();
+      setData(data);
+    
+  }
+  useEffect(()=>{
+    getData()
+  },[])
+console.log(data)
 const handleWishlist=()=>{
   setColor(!color);
   {
@@ -88,7 +99,7 @@ const handleWishlist=()=>{
   </div>
   <div style={{marginLeft:"15px",marginTop:"2px"}}>
   <Checkbox size='md' colorScheme='pink' >
-    Puma
+  Manyavar
   </Checkbox>
   
   </div>
@@ -100,7 +111,7 @@ const handleWishlist=()=>{
   </div>
   <div style={{marginLeft:"15px",marginTop:"2px"}}>
   <Checkbox size='md' colorScheme='pink' >
-    HRX by Hrithik Roshan
+   Puma
   </Checkbox>
   
   </div>
@@ -159,8 +170,8 @@ const handleWishlist=()=>{
   </div>
   <div style={{marginLeft:"15px",marginTop:"2px"}}>
   <Checkbox size='md' colorScheme='pink' >
-  <Flex><svg xmlns="http://www.w3.org/2000/svg" width="18" height="25" viewBox="0 0 24 24" fill="red" stroke="currentColor" stroke-width="0" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>
- Red</Flex>
+  <Flex><svg xmlns="http://www.w3.org/2000/svg" width="18" height="25" viewBox="0 0 24 24" fill="blue" stroke="currentColor" stroke-width="0" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>
+ Blue</Flex>
    </Checkbox>
   
   </div>
@@ -173,18 +184,20 @@ const handleWishlist=()=>{
   </div>
   <div style={{marginLeft:"15px",marginTop:"2px"}}>
   <Checkbox size='md' colorScheme='pink' >
+  <Flex><svg xmlns="http://www.w3.org/2000/svg" width="18" height="25" viewBox="0 0 24 24" fill="red" stroke="currentColor" stroke-width="0" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>
+ Red</Flex>
+   </Checkbox>
+  
+  </div>
+ 
+  <div style={{marginLeft:"15px",marginTop:"2px"}}>
+  <Checkbox size='md' colorScheme='pink' >
   <Flex><svg xmlns="http://www.w3.org/2000/svg" width="18" height="25" viewBox="0 0 24 24" fill="green" stroke="currentColor" stroke-width="0" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>
  Green</Flex>
    </Checkbox>
   
   </div>
-  <div style={{marginLeft:"15px",marginTop:"2px"}}>
-  <Checkbox size='md' colorScheme='pink' >
-  <Flex><svg xmlns="http://www.w3.org/2000/svg" width="18" height="25" viewBox="0 0 24 24" fill="blue" stroke="currentColor" stroke-width="0" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>
- Blue</Flex>
-   </Checkbox>
   
-  </div>
   <div style={{marginLeft:"15px",marginTop:"2px"}}>
   <Checkbox size='md' colorScheme='pink' >
   <Flex><svg xmlns="http://www.w3.org/2000/svg" width="18" height="25" viewBox="0 0 24 24" fill="grey" stroke="currentColor" stroke-width="0" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>
@@ -208,14 +221,15 @@ const handleWishlist=()=>{
     </div>
   </GridItem>
   <GridItem w='100%' h='auto' className='poductgrid'  >
-  
-  <div  style={{width:"250px",height:"300px"}}>
+  {
+    data?.map((el)=>(
+      <div  style={{width:"250px",height:"300px",marginTop:"100px"}} key={el.id}>
       <div style={{position:"relative",width:"250px",height:"300px"}}>
         <div className='zoom'>
-        <Img width={"210px"} height={"290px"} src="https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/2275365/2022/11/22/a3af8a2f-a385-4cb7-bf7b-e34e0925fe0d1669105782439-Roadster-Men-White--Pure-Cotton-T-shirt-7301669105781913-1.jpg"/>
+        <Img width={"210px"} height={"290px"} src={el.imageLink}/>
        </div>
          <div  className="rating">
-     <Flex>  <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="blue" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><Text as="b">4</Text></Flex> 
+     <Flex>  <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="blue" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><Text as="b">{el.rating}</Text></Flex> 
       </div> 
       <div  className="wishlist">
 
@@ -223,15 +237,18 @@ const handleWishlist=()=>{
      </div>
        </div>
       </div>
-      <Link to={`/products/id`}> <div>
-        <Text as={"b"}>Roadster</Text>
-        <Text >Pure Cotton Tshirt</Text>
-       <Flex> <Text as={"b"}>Rs 224</Text><Text color={"orange"}>(50% OFF)</Text></Flex>
+      <Link to={`/products/${el.id}`}> <div>
+        <Text as={"b"}>{el.brand}</Text>
+        <Text >{el.productName}</Text>
+       <Flex> <Text as={"b"}>Rs {el.price}</Text><Text color={"orange"}>({el.discount}% OFF)</Text></Flex>
       
       </div>
       </Link>
     </div>
     
+    ))
+  }
+ 
     
   </GridItem>
   
