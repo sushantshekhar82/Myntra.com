@@ -1,0 +1,89 @@
+.nav1{
+   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap:150px;
+    margin-left: 20px;
+
+
+}
+.link{
+    display: grid;
+    text-decoration: none;
+    font-weight: bold;
+    font-size:14px ;
+    color: #282c3f;
+    align-items: center;
+    margin-right: 4px;
+    margin-left: 5px;
+}
+.search{
+    display: flex;
+    align-items: center;
+    margin-right: 50px;
+}
+.icon{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap:25px;
+    margin-left: 20px;
+}
+.form{
+    width: 250px;
+}
+.homegrid{
+    display: grid;
+    grid-template-rows: 400px 400px 400px;
+    justify-content: space-around;
+    gap: 10;
+   
+    margin-top: 5px;
+}
+.homegrid>div{
+    width:100%;
+ 
+   
+   margin-top: 10px;
+   
+}
+.rating{
+ position: relative;
+ bottom: 25px;
+ left: 5px; 
+ background-color: white;
+ width: 30px;
+ height: 20px;
+
+
+}
+.wishlist{
+    position: relative;
+    bottom: 300px; 
+    left: 180px;
+}
+
+.zoom:hover{
+    transform: scale(1.03); 
+ 
+}
+.poductgrid{
+    display: grid;
+    grid-template-columns:repeat(4,1fr);
+    gap: 5px;
+
+}
+.cartgrid{
+    display: grid;
+    grid-template-columns: 30% 65%;
+    grid-template-rows: 200px;
+    width: 650px;
+    border: 1px solid wheat;
+gap:2px;
+    margin-top: 35px;
+}   
+.image{
+    width: 150px;
+    height: 200px;
+} 
