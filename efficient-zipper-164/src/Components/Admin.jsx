@@ -1,6 +1,6 @@
 import React from 'react'
 import  { useState } from 'react'
-
+import { Text } from '@chakra-ui/react';
 function Admin() {
     const [name,setName]=useState("");
     const [link,setlink]=useState("");
@@ -51,6 +51,7 @@ function Admin() {
   }
   return (
     <div>
+      <Text fontSize={"xx-large"} color={"orange"} as={"b"} width={"300px"} textAlign={"center"} > Welcome to Admin page</Text>
         <br/>
         <br/>
         <h1>From is for links</h1>

@@ -7,6 +7,7 @@ import Wishlist from './Wishlist'
 import Cart from './Cart'
 import Admin from './Admin'
 import SingleProductPage from './SingleProductPage'
+import CheckOut from './CheckOut'
 function AllRoutes() {
   return (
      <Routes>
@@ -16,6 +17,7 @@ function AllRoutes() {
         <Route path='/wishlist' element={<Wishlist/>}/>
         <Route path='/cart' element={<Cart/>}/>
         <Route path="/products/:id" element={<SingleProductPage/>}/>
+        <Route path='/checkout' element={<CheckOut/>}/>
      </Routes>
   )
 }

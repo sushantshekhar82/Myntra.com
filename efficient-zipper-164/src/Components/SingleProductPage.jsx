@@ -43,7 +43,7 @@ function SingleProductPage() {
     useEffect(()=>{
       getData(param.id)
       
-    },[])
+    },[param.id])
 
     useEffect(()=>{
       localStorage.setItem("cart",JSON.stringify(item))
