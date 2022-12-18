@@ -15,6 +15,15 @@ import "../project.css";
 import { useToast } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
+const getLocalItems=()=>{
+ 
+  let wishlist=localStorage.getItem("wishlist")
+  if(wishlist){
+    return JSON.parse(localStorage.getItem("wishlist"))
+  }else{
+  return  []
+  }
+}
 function Men() {
   const [value, setValue] = useState('1');
   const [value1,setValue1]=useState('1')
@@ -22,6 +31,7 @@ function Men() {
   const toast = useToast();
   const [data,setData]=useState([])
   const [loading,setLoading]=useState(false)
+  const [item,setItem]=useState(getLocalItems())
   const getData=async()=>{
     setLoading(true)
     let res=await fetch(`https://render-mock-server-7ng4.onrender.com/Products`);
@@ -32,11 +42,15 @@ function Men() {
   useEffect(()=>{
     getData()
   },[])
+  useEffect(()=>{
+    localStorage.setItem("wishlist",JSON.stringify(item))
+  
+  },[item])
   if(loading){
     return <img style={{display:"flex",alignItems:"center",justifyContent:"center",margin:"auto"}} width="300px" height="300px"  src="https://www.appcoda.com/learnswiftui/images/animation/swiftui-animation-4.gif" alt="progress"/>
   }
 console.log(data)
-const handleWishlist=()=>{
+const handleWishlist=(data,id)=>{
   setColor(!color);
   {
     color? toast({
@@ -56,6 +70,8 @@ const handleWishlist=()=>{
     })
    
   }
+  setItem([...item,data])
+ 
   
 }
 
@@ -238,7 +254,7 @@ const handleWishlist=()=>{
       </div> 
       <div  className="wishlist">
 
-     <div style={{cursor:"pointer"}} onClick={handleWishlist} >  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill={color?"red":"wheat"} stroke="currentColor" stroke-width="0" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+     <div style={{cursor:"pointer"}} onClick={()=>handleWishlist(el,el.id)} >  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill={color?"red":"wheat"} stroke="currentColor" stroke-width="0" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
      </div>
        </div>
       </div>

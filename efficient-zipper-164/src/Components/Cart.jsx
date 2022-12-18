@@ -20,7 +20,8 @@ import {
 } from '@chakra-ui/react'
 
 import { Select } from '@chakra-ui/react'
-
+import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 const getLocalItems=()=>{
  
@@ -32,7 +33,11 @@ const getLocalItems=()=>{
   }
 }
 function Cart() {
+ 
   const [item,setItem]=useState(getLocalItems())
+  const [finalPrice,setFinalPrice]=useState(0)
+  const [discount,setDiscount]=useState(0)
+  const [price,setPrice]=useState(0)
   const {length,Length}=useContext(AppContext)
   console.log(item)
   const handleRemove=(id)=>{
@@ -45,13 +50,31 @@ function Cart() {
     localStorage.removeItem("item");
   }
   }
+  const [totalPrice,setTotalPrice]=useState(0)
+  useEffect(()=>{
+    const total = item.reduce((prev, cur) => (cur.price * 1) + prev, 0);
+    setTotalPrice(total)
+    setFinalPrice(price)
+  },[length])
+  const handleDiscount=()=>{
+    const cur=totalPrice-200
+    setPrice(cur)
+     setFinalPrice(price)
+    setDiscount(200)
+  }
+
+  const handleCheckout=()=>{
+
+  }
+  console.log(totalPrice,finalPrice,price);
   return (
     <div>
      {length===0||null?
      <EmptyCartPage/>:
-     <Grid width={"80%"} margin={"auto"} templateColumns='55% 40%' gap={6}>
+     <Grid width={"80%"} margin={"auto"} templateColumns='60% 40%' gap={6}>
+     
      <GridItem w='100%' h='auto' marginTop={"30px"} >
-     <Accordion defaultIndex={[0]}  allowMultiple textDecoration={"none"}>
+     <Accordion   allowMultiple textDecoration={"none"}>
   <AccordionItem>
     <h2>
       <AccordionButton textDecoration={"none"} border={"1px solid wheat"} backgroundColor={"transparent"}>
@@ -104,8 +127,42 @@ function Cart() {
 }
 
      </GridItem>
-     <GridItem w='100%' h='10'  ></GridItem>
-    
+     <GridItem w='100%' h='10'  >
+      
+      <div className='cartprice'>
+         <div>
+          <Text color={"Red"} as={"b"} >Apply Coupons</Text><br/>
+          <Button border={"3px dashed rgb(202, 5, 120)"} marginTop={"10px"} disabled={discount===200} onClick={()=>handleDiscount}>MYNTRA200</Button><br/>
+          <Text color={"black"} as={"b"}>Save Rs202</Text><br/>
+          <Text color={"black"} as={"b"}>Rs200  off on Minimum  purchase of Rs599</Text>
+          
+         </div>
+         <div><Img src='https://pbs.twimg.com/media/Ejj8fKYUcAABx2m.jpg' height={"180px"} width={"100%"} alt="myntra gift"/></div>
+         <div>
+          <Divider margin={"20px"}/>
+         <Text color={"Red"} as={"b"} >Price Details</Text><br/>
+         <div style={{display:"flex",justifyContent:"space-between",fontWeight:"bold"}}>
+             <div>Total MRP</div>
+             <div>Rs {totalPrice}</div>
+         </div>
+         <div style={{display:"flex",justifyContent:"space-between",fontWeight:"bold"}}>
+             <div>Myntra Discount</div>
+             <div><Text color={"green.400"}>-{discount}</Text></div>
+         </div>
+         <div style={{display:"flex",justifyContent:"space-between",fontWeight:"bold"}}>
+             <div>Convenience Fee</div>
+             <div><Flex><del>99</del><Text color={"green.500"} marginLeft={"5px"}>Free</Text></Flex></div>
+         </div>
+         <Divider margin={"20px"}/>
+         <div style={{display:"flex",justifyContent:"space-between",fontWeight:"bold"}}>
+             <div>Total Amount</div>
+             <div><Text color={"green.500"} marginLeft={"5px"}>Rs {discount===200?  finalPrice: totalPrice}</Text></div>
+         </div>
+         </div>
+       <Link to="/checkout"> <Button  backgroundColor={"#ff3e6c"} color={"white"} marginLeft={"70px"} width={"300px"} >Place Order</Button></Link>
+      </div>
+     </GridItem>
+  
    </Grid>
      }
     </div>
