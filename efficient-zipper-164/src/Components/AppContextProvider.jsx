@@ -8,7 +8,7 @@ function AppContextProvider({children}) {
     const [length,setLength]=useState(0)
 
     const Length=(num)=>{
-      setLength(num)
+      setLength(Math.abs(num+1))
     }
   console.log(length)
     return (

@@ -15,9 +15,9 @@ import Cart from './Cart'
 import { Link } from 'react-router-dom'
 import { useContext } from 'react'
 import { AppContext } from './AppContextProvider'
-
+import { useToast } from '@chakra-ui/react'
 const getLocalItems=()=>{
-
+ 
   let cart=localStorage.getItem("cart")
   if(cart){
     return JSON.parse(localStorage.getItem("cart"))
@@ -26,6 +26,7 @@ const getLocalItems=()=>{
   }
 }
 function SingleProductPage() {
+  const toast = useToast();
    const {length,Length}=useContext(AppContext)
     const [data,setData]=useState([])
     const param=useParams()
@@ -62,7 +63,15 @@ function SingleProductPage() {
 
   const handleCart=()=>{
     setItem([...item,data])
-    Length(item.length)
+    Length(item.length);
+    
+    toast({
+      title: 'Item added',
+      
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    });
   }
 console.log(length)
   return (

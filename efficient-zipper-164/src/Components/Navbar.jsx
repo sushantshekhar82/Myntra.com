@@ -22,12 +22,10 @@ function NavbarHome() {
  const {length}=useContext(AppContext)
 
   const [cart,setCart]=useState(JSON.parse(localStorage.getItem('cart')))
-  const [num,setNum]=useState(cart.length)
+  
   
  
-  useEffect(()=>{
- console.log(cart,num);
-  },[cart,num])
+ 
   return (
     <Navbar bg="light" expand="lg" sticky="top">
       <Container fluid>

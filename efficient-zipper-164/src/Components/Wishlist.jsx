@@ -1,9 +1,10 @@
 import React from 'react'
+import EmptyCartPage from './EmptyCartPage'
 
 function Wishlist() {
   return (
     <div>
-      wishlist
+     <EmptyCartPage/>
     </div>
   )
 }

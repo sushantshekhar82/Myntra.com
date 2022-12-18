@@ -75,7 +75,25 @@ const [data,setData]=useState([])
       />
      
     </Carousel.Item>
-  </Carousel>
+    <Carousel.Item>
+      <img
+        className="d-block w-100"
+        src="https://assets.myntassets.com/f_webp,w_980,c_limit,fl_progressive,dpr_2.0/assets/images/2022/7/25/b656a7f4-4688-4997-bb7c-54b78793981e1658752386588-Western-Wear_Desk.jpg
+        "
+        alt="First slide"
+      />
+     
+    </Carousel.Item>
+    <Carousel.Item>
+      <img
+        className="d-block w-100"
+        src="https://assets.myntassets.com/w_980,c_limit,fl_progressive,dpr_2.0/assets/images/2022/7/25/9be788ff-39a4-4214-99d0-fc97505aae5a1658752545685-USPA_Desk_Banner.jpg
+        "
+        alt="First slide"
+      />
+     
+    </Carousel.Item>
+    </Carousel>
 </div>
 <div className='homegrid' >
   <div>
