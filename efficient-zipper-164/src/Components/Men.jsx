@@ -63,7 +63,7 @@ const handleWishlist=()=>{
     <div>
       <div><Breadcrumb marginLeft={"15px"} spacing='8px' separator={<ChevronRightIcon color='gray.500' />}>
   <BreadcrumbItem>
-    <BreadcrumbLink href='/'>Home</BreadcrumbLink>
+   <Link to="/">Home</Link>
   </BreadcrumbItem>
 
  
