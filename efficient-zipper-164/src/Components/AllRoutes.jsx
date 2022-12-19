@@ -13,17 +13,17 @@ import Login from './Login'
 import PrivateRoute from './PrivateRoute'
 function AllRoutes() {
   return (
-     <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/men' element={<Men/>}/>
-        <Route path='/admin' element={<PrivateRoute><Admin/></PrivateRoute>}/>
-        <Route path='/wishlist' element={<PrivateRoute><Wishlist/></PrivateRoute>}/>
-        <Route path='/cart' element={<Cart/>}/>
-        <Route path="/products/:id" element={<SingleProductPage/>}/>
-        <Route path='/checkout' element={<CheckOut/>}/>
-        <Route path='/payment' element={<Payment/>}/>
-        <Route path='/login' element={<Login/>}/>
-     </Routes>
+   <Routes>
+   <Route path='/' element={<Home/>}/>
+   <Route path='/men' element={<Men/>}/>
+   <Route path='/admin' element={<PrivateRoute><Admin/></PrivateRoute>}/>
+   <Route path='/wishlist' element={<PrivateRoute><Wishlist/></PrivateRoute>}/>
+   <Route path='/cart' element={<Cart/>}/>
+   <Route path="/products/:id" element={<SingleProductPage/>}/>
+   <Route path='/checkout' element={<PrivateRoute><CheckOut/></PrivateRoute>}/>
+   <Route path='/payment' element={<PrivateRoute><Payment/></PrivateRoute>}/>
+   <Route path='/login' element={<Login/>}/>
+  </Routes>
   )
 }
 
