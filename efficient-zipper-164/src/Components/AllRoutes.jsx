@@ -9,17 +9,20 @@ import Admin from './Admin'
 import SingleProductPage from './SingleProductPage'
 import CheckOut from './CheckOut'
 import Payment from './Payment'
+import Login from './Login'
+import PrivateRoute from './PrivateRoute'
 function AllRoutes() {
   return (
      <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/men' element={<Men/>}/>
-        <Route path='/admin' element={<Admin/>}/>
-        <Route path='/wishlist' element={<Wishlist/>}/>
+        <Route path='/admin' element={<PrivateRoute><Admin/></PrivateRoute>}/>
+        <Route path='/wishlist' element={<PrivateRoute><Wishlist/></PrivateRoute>}/>
         <Route path='/cart' element={<Cart/>}/>
         <Route path="/products/:id" element={<SingleProductPage/>}/>
         <Route path='/checkout' element={<CheckOut/>}/>
         <Route path='/payment' element={<Payment/>}/>
+        <Route path='/login' element={<Login/>}/>
      </Routes>
   )
 }
