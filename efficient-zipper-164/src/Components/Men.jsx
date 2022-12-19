@@ -99,11 +99,12 @@ const handleWishlist=(data,id)=>{
     <Text as={"b"}>CATEGORIES</Text><br/>
     <RadioGroup onChange={setValue1} value={value1}>
       <Stack direction='column'>
-        <Radio value='1'>Tshirt</Radio>
-        <Radio value='2'>Jeans</Radio>
-        <Radio value='3'>Shoes</Radio>
-        <Radio value='4'>Kurtas & Kurta sets</Radio>
-        <Radio value='5'>Boxers</Radio>
+      <Radio value='1'>All</Radio>
+        <Radio value='2'>Tshirt</Radio>
+        <Radio value='3'>Jeans</Radio>
+        <Radio value='4'>Shoes</Radio>
+        <Radio value='5'>Kurtas & Kurta sets</Radio>
+        <Radio value='6'>Boxers</Radio>
        
       </Stack>
     </RadioGroup>

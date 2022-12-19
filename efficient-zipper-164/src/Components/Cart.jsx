@@ -46,9 +46,7 @@ function Cart() {
    localStorage.setItem("cart",JSON.stringify(items))
   setItem(getLocalItems()) 
   Length(-item.length);
-  if (items.length === 0) {
-    localStorage.removeItem("item");
-  }
+  
   }
   const [totalPrice,setTotalPrice]=useState(0)
   useEffect(()=>{
