@@ -51,25 +51,13 @@ function Men() {
   }
 console.log(data)
 const handleWishlist=(data,id)=>{
-  setColor(!color);
-  {
-    color? toast({
-      title: 'Item removed from wishlist',
-      
-      status: 'error',
-      duration: 5000,
-      isClosable: true,
-    })
-    :
-    toast({
-      title: 'Item added in wishlist',
-      
-      status: 'success',
-      duration: 5000,
-      isClosable: true,
-    })
-   
-  }
+  toast({
+    title: 'Item added in wishlist',
+    
+    status: 'success',
+    duration: 5000,
+    isClosable: true,
+  })
   setItem([...item,data])
  
   
