@@ -69,8 +69,12 @@ function Cart() {
     <div>
      {length===0||null?
      <EmptyCartPage/>:
+     <>
+     <Flex justifyContent={"center"}>
+  <Text fontWeight={"bold"} textAlign={"center"} color={"green.500"}><u>BAG</u></Text>------  <Text fontWeight={"bold"} color={"black"}>ADDRESS</Text>-----<Text fontWeight={"bold"} color={"black"}>PAYMENT</Text>
+  </Flex>
      <Grid width={"80%"} margin={"auto"} templateColumns='60% 40%' gap={6}>
-     
+      
      <GridItem w='100%' h='auto' marginTop={"30px"} >
      <Accordion   allowMultiple textDecoration={"none"}>
   <AccordionItem>
@@ -162,9 +166,11 @@ function Cart() {
      </GridItem>
   
    </Grid>
+   </>
      }
     </div>
   )
+
 }
 
 export default Cart
