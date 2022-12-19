@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import "../project.css";
 import Footer from './Footer'
 const getLocalItems=()=>{
- 
+  
   let wishlist=localStorage.getItem("wishlist")
   if(wishlist){
     return JSON.parse(localStorage.getItem("wishlist"))
@@ -14,10 +14,19 @@ const getLocalItems=()=>{
   return  []
   }
 }
-const handleWishlist=()=>{}
-const handleRemove=()=>{}
+
 function Wishlist() {
   const [item,setItem]=useState(getLocalItems())
+  const handleWishlist=()=>{}
+const handleRemove=(id)=>{
+  console.log(id)
+  let items=JSON.parse(localStorage.getItem("wishlist"));
+  items=items.filter((el)=>el.id !==id);
+  localStorage.setItem("wishlist",JSON.stringify(items))
+ setItem(getLocalItems()) 
+ 
+ 
+ }
   console.log(item);
   return (
     <div >
@@ -44,11 +53,11 @@ function Wishlist() {
             <Text as={"b"}>{el.brand}</Text>
             <Text >{el.productName}</Text>
            <Flex> <Text as={"b"}>Rs {el.price}</Text><Text color={"orange"}>({el.discount}% OFF)</Text></Flex>
-           <Button className='input'   backgroundColor={"#ff3e6c"} color={"white"} marginLeft={"22px"} width={"150px"} >Add To Cart</Button>
-           <Button marginLeft={"50px"} marginBottom={"10px"} marginTop={"10px"} colorScheme='red'  width={"100px"} onClick={()=>handleRemove(el.id)}>Remove</Button>
-
+          
           </div>
           </Link>
+           <Button marginLeft={"50px"} marginBottom={"10px"} marginTop={"10px"} colorScheme='red'  width={"100px"} onClick={()=>handleRemove(el.id)}>Remove</Button>
+
             </div>
         
         ))   
