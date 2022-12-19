@@ -5,7 +5,14 @@ import { createContext } from 'react'
 
 export const AppContext=createContext();
 function AppContextProvider({children}) {
-  
+    const [auth,setAuth]=useState(false)
+    const login=(status)=>{
+        setAuth(status);
+    }
+    const [authUser,setAuthUser]=useState(false)
+    const loginUser=(status)=>{
+        setAuthUser(status);
+    }
     const [length,setLength]=useState(0)
     useEffect(()=>{
       const cart=JSON.parse(localStorage.getItem("cart"))||[]
@@ -16,9 +23,9 @@ function AppContextProvider({children}) {
     const Length=(num)=>{
       setLength(Math.abs(num+1))
     }
-  console.log(length)
+
     return (
-    <AppContext.Provider value={{length,Length}}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{length,Length,auth,login,authUser,loginUser}}>{children}</AppContext.Provider>
   )
 }
 
