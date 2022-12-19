@@ -100,4 +100,11 @@ gap:2px;
     margin:5px;
     border-radius: 10px;
 }
+.wishlist1{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: auto;
+    width:90%;
+    margin: auto;
+}
 
