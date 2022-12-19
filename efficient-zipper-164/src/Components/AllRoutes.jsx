@@ -8,6 +8,7 @@ import Cart from './Cart'
 import Admin from './Admin'
 import SingleProductPage from './SingleProductPage'
 import CheckOut from './CheckOut'
+import Payment from './Payment'
 function AllRoutes() {
   return (
      <Routes>
@@ -18,6 +19,7 @@ function AllRoutes() {
         <Route path='/cart' element={<Cart/>}/>
         <Route path="/products/:id" element={<SingleProductPage/>}/>
         <Route path='/checkout' element={<CheckOut/>}/>
+        <Route path='/payment' element={<Payment/>}/>
      </Routes>
   )
 }
