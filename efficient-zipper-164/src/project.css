@@ -21,14 +21,14 @@
 .search{
     display: flex;
     align-items: center;
-    margin-right: 50px;
+    margin-right: 35px;
 }
 .icon{
     display: flex;
     align-items: center;
     justify-content: space-around;
     gap:25px;
-    margin-left: 20px;
+    margin-left: 15px;
 }
 .form{
     width: 250px;

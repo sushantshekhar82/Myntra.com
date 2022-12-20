@@ -11,13 +11,19 @@ import CheckOut from './CheckOut'
 import Payment from './Payment'
 import Login from './Login'
 import PrivateRoute from './PrivateRoute'
+import EmptyCartPage from './EmptyCartPage'
 function AllRoutes() {
   return (
-     <Routes>
+      <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/men' element={<Men/>}/>
+        <Route path='/women' element={<EmptyCartPage/>}/>
+        <Route path='/kids' element={<EmptyCartPage/>}/>
+        <Route path='/home&living' element={<EmptyCartPage/>}/>
+        <Route path='/beauty' element={<EmptyCartPage/>}/>
+        <Route path='/studio' element={<EmptyCartPage/>}/>
         <Route path='/admin' element={<PrivateRoute><Admin/></PrivateRoute>}/>
-        <Route path='/wishlist' element={<PrivateRoute><Wishlist/></PrivateRoute>}/>
+        <Route path='/wishlist' element={<Wishlist/>}/>
         <Route path='/cart' element={<Cart/>}/>
         <Route path="/products/:id" element={<SingleProductPage/>}/>
         <Route path='/checkout' element={<CheckOut/>}/>
