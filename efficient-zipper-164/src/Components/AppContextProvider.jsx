@@ -19,7 +19,7 @@ function AppContextProvider({children}) {
      {length===null?length=0: setLength(cart.length)}
     },[length])
   
-
+console.log(auth,authUser)
     const Length=(num)=>{
       setLength(Math.abs(num+1))
     }

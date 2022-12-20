@@ -6,10 +6,12 @@ function PrivateRoute({children}) {
    const { auth,login,authUser,loginUser } = useContext(AppContext);
  
  
-  if (auth==false || authUser==false ) {
+  if (auth===false || authUser===false ) {
     return <Navigate to="/login" />;
+  }else if(auth===true || authUser===true){
+    return children;
   }
-  return children;
+ 
  
 }
 
