@@ -1,16 +1,15 @@
-
-import { useEffect } from 'react';
-import './App.css';
-import AllRoutes from './Components/AllRoutes';
-import NavbarHome from './Components/Navbar';
-
+import { useEffect } from "react";
+import "./App.css";
+import AllRoutes from "./Components/AllRoutes";
+import NavbarHome from "./Components/Navbar";
+import NavbarRes from "./Components/NavbarRes";
 
 function App() {
- 
   return (
-    <div >
-     <NavbarHome/>
-     <AllRoutes/>
+    <div>
+      {/* <NavbarHome/> */}
+      <NavbarRes />
+      <AllRoutes />
     </div>
   );
 }
