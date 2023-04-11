@@ -7,6 +7,9 @@ import {
   Stack,
   Radio,
   RadioGroup,
+  useDisclosure,
+  Heading,
+  CheckboxGroup,
 } from "@chakra-ui/react";
 import {
   Breadcrumb,
@@ -23,7 +26,17 @@ import "../project.css";
 import { useToast } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import { FaFilter } from "react-icons/fa";
 import FooterRes from "./FooterRes";
+import {
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+} from "@chakra-ui/react";
 const getLocalItems = () => {
   let wishlist = localStorage.getItem("wishlist");
   if (wishlist) {
@@ -40,6 +53,8 @@ function Men() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [item, setItem] = useState(getLocalItems());
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [placement, setPlacement] = React.useState("right");
   const getData = async () => {
     setLoading(true);
     let res = await fetch(
@@ -103,9 +118,158 @@ function Men() {
         </Breadcrumb>
       </div>
 
-      <Divider marginTop={"30px"} />
+      <Divider marginTop={"10px"} />
+      <div className="mobileview">
+        <FaFilter className="filter" size={"20px"} onClick={onOpen} />
+
+        <Drawer placement={placement} onClose={onClose} isOpen={isOpen}>
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerHeader borderBottomWidth="1px">Filter By</DrawerHeader>
+            <DrawerCloseButton />
+            <DrawerBody>
+              <Heading
+                size={"sm"}
+                fontWeight={"bold"}
+                marginBottom={"5px"}
+                marginTop={"5px"}
+              >
+                Category
+              </Heading>
+
+              <CheckboxGroup
+                colorScheme={"green"}
+                // onChange={handleChange}
+                // value={categoryfilter}
+              >
+                <Stack direction={"column"}>
+                  <Checkbox value={"ring"} colorScheme="green">
+                    Roadster
+                  </Checkbox>
+
+                  <Checkbox value={"chain"} colorScheme="green">
+                    Manyavar
+                  </Checkbox>
+                  <Checkbox value={"pearl"} colorScheme="green">
+                    WROGN
+                  </Checkbox>
+
+                  <Checkbox value={"necklace"} colorScheme="green">
+                    Necklace
+                  </Checkbox>
+                  <Checkbox value={"earrings"} colorScheme="green">
+                    Earrings
+                  </Checkbox>
+                </Stack>
+              </CheckboxGroup>
+              <Heading
+                size={"sm"}
+                fontWeight={"bold"}
+                marginBottom={"5px"}
+                marginTop={"5px"}
+              >
+                Category
+              </Heading>
+
+              <CheckboxGroup
+                colorScheme={"green"}
+                // onChange={handleChange}
+                // value={categoryfilter}
+              >
+                <Stack direction={"column"}>
+                  <Checkbox value={"ring"} colorScheme="green">
+                    Ring
+                  </Checkbox>
+
+                  <Checkbox value={"chain"} colorScheme="green">
+                    Chain
+                  </Checkbox>
+                  <Checkbox value={"pearl"} colorScheme="green">
+                    Pearl
+                  </Checkbox>
+
+                  <Checkbox value={"necklace"} colorScheme="green">
+                    Necklace
+                  </Checkbox>
+                  <Checkbox value={"earrings"} colorScheme="green">
+                    Earrings
+                  </Checkbox>
+                </Stack>
+              </CheckboxGroup>
+              <Heading
+                size={"sm"}
+                fontWeight={"bold"}
+                marginBottom={"5px"}
+                marginTop={"5px"}
+              >
+                Category
+              </Heading>
+
+              <CheckboxGroup
+                colorScheme={"green"}
+                // onChange={handleChange}
+                // value={categoryfilter}
+              >
+                <Stack direction={"column"}>
+                  <Checkbox value={"ring"} colorScheme="green">
+                    Ring
+                  </Checkbox>
+
+                  <Checkbox value={"chain"} colorScheme="green">
+                    Chain
+                  </Checkbox>
+                  <Checkbox value={"pearl"} colorScheme="green">
+                    Pearl
+                  </Checkbox>
+
+                  <Checkbox value={"necklace"} colorScheme="green">
+                    Necklace
+                  </Checkbox>
+                  <Checkbox value={"earrings"} colorScheme="green">
+                    Earrings
+                  </Checkbox>
+                </Stack>
+              </CheckboxGroup>
+
+              <Heading
+                size={"sm"}
+                fontWeight={"bold"}
+                marginBottom={"5px"}
+                marginTop={"5px"}
+              >
+                Rating
+              </Heading>
+
+              <CheckboxGroup
+                colorScheme={"green"}
+                // onChange={handleChangestar}
+                // value={startfilter}
+              >
+                <Stack direction={"column"}>
+                  <Checkbox value={"5"} colorScheme="green">
+                    star
+                  </Checkbox>
+                  <Checkbox value={"4"} colorScheme="green">
+                    star
+                  </Checkbox>
+                  <Checkbox value={"3"} colorScheme="green">
+                    star
+                  </Checkbox>
+                  <Checkbox value={"2"} colorScheme="green">
+                    star
+                  </Checkbox>
+                  <Checkbox value={"1"} colorScheme="green">
+                    star
+                  </Checkbox>
+                </Stack>
+              </CheckboxGroup>
+            </DrawerBody>
+          </DrawerContent>
+        </Drawer>
+      </div>
+
       <Grid templateColumns="23% 73%" gap={2}>
-        <GridItem w="100%" h="auto">
+        <GridItem w="100%" h="auto" display={{ base: "none", lg: "block" }}>
           <Text as="b" marginLeft={"15px"}>
             FILTERS
           </Text>

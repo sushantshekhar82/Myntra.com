@@ -9,7 +9,9 @@ function App() {
     <div>
       {/* <NavbarHome/> */}
       <NavbarRes />
-      <AllRoutes />
+      <div style={{ marginTop: "68px" }}>
+        <AllRoutes />
+      </div>
     </div>
   );
 }

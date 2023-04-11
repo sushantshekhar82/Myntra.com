@@ -135,6 +135,10 @@ gap:2px;
     align-items: center;
    
 }
+.mobileview{
+    display: none;
+
+}
 @media only screen and (min-width: 320px) and (max-width: 480px) {
     .homegrid{
         display: grid;
@@ -150,6 +154,10 @@ gap:2px;
        
      
        
+    }
+    .mobileview{
+        display: block;
+        margin: 10px;
     }
     .carousel{
         width: 100%; 

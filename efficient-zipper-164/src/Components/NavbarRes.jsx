@@ -69,7 +69,14 @@ const NavbarRes = () => {
 
   return (
     <>
-      <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
+      <Box
+        position="fixed"
+        bg={useColorModeValue("gray.100", "gray.900")}
+        px={4}
+        width="100%"
+        top={0}
+        zIndex={1}
+      >
         <Flex
           h={16}
           alignItems={"center"}
@@ -126,7 +133,7 @@ const NavbarRes = () => {
               </Link>
             </HStack>
           </HStack>
-          <HStack display={{ base: "none", md: "flex" }}>
+          <HStack display={{ base: "none", md: "none", lg: "flex" }}>
             <div className="search">
               <Search2Icon />
               <Form className="d-flex">
@@ -288,20 +295,24 @@ const NavbarRes = () => {
                 <Link className="link" to="/admin">
                   {auth ? "Admin" : ""}
                 </Link>
-                <Link to="/login">
-                  <Button
-                    fontSize={"sm"}
-                    fontWeight={"bold"}
-                    color={"white"}
-                    bg={"pink.400"}
-                    _hover={{
-                      bg: "pink.300",
-                    }}
-                    marginTop={"15px"}
-                  >
-                    Sign In
-                  </Button>
-                </Link>
+                {auth || authUser ? (
+                  ""
+                ) : (
+                  <Link to="/login">
+                    <Button
+                      fontSize={"sm"}
+                      fontWeight={"bold"}
+                      color={"white"}
+                      bg={"pink.400"}
+                      _hover={{
+                        bg: "pink.300",
+                      }}
+                      marginTop={"15px"}
+                    >
+                      Sign In
+                    </Button>
+                  </Link>
+                )}
                 <Img
                   src="https://assets.myntassets.com/assets/images/retaillabs/2022/12/30/856cb741-8473-4d5e-b6e3-a52b3d98c99e1672386455977-PWA---App-Download-banner.png"
                   alt="enjoy myntra"
