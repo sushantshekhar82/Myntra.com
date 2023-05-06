@@ -60,11 +60,14 @@
 
 }
 .wishlist{
-    position: relative;
+    position: absolute;
     bottom: 300px; 
-    left: 180px;
+    left: 200px;
 }
-
+.zoom>img{
+    width: 100%;
+    
+}
 .zoom:hover{
     transform: scale(1.03); 
  
@@ -72,8 +75,16 @@
 .poductgrid{
     display: grid;
     grid-template-columns:repeat(4,1fr);
-    gap: 5px;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 
+}
+.productgridinner{
+    width: "250px";
+     height: "300px"; 
+     margin-top: 50px;
 }
 .cartgrid{
     display: grid;
@@ -139,7 +150,30 @@ gap:2px;
     display: none;
 
 }
-@media only screen and (min-width: 320px) and (max-width: 480px) {
+.productview{
+    display: grid;
+    grid-template-columns: 23% 73%;
+    width: 100%;
+    gap: 10px;
+    justify-content: center;
+    
+}
+.singleproduct{
+    display: grid;
+grid-template-columns: 58% 38%;
+    gap:4px
+}
+.singleinner{
+    display: grid;
+    grid-template-columns: 48% 48%;
+    gap:16px
+   
+}
+.btn{
+    width: 200px;
+    height: 80px;
+}
+@media only screen and (min-width: 200px) and (max-width: 480px) {
     .homegrid{
         display: grid;
         grid-template-rows: auto auto auto;
@@ -172,7 +206,7 @@ gap:2px;
         grid-template-columns:100%;
         padding: 10px;
        
-    }
+    } 
     .emptyres{
         display: grid;
         width: 100%;
@@ -183,6 +217,59 @@ gap:2px;
         align-items: center;
       
     
+    }
+    .poductgrid{
+       display: grid;
+       width: 100%;
+       grid-template-columns: 100%;
+       
+    }
+    .poductgrid>div{
+        width: 100%;
+        
+    }
+    .productgridinner{
+        width: "350px";
+         height: "500px"; 
+         margin-top: 50px;
+    }
+    .productgridinner>div{
+        width: 100%;
+        
+    }
+    .productview{
+        display: grid;
+        grid-template-columns: 100%;
+        width: 90%;
+        margin: auto;
+        gap: 5px;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    .wishlist{
+        position: absolute;
+        bottom: 450px; 
+        left: 300px;
+    }
+    .singleproduct{
+        display: grid;
+    grid-template-columns: 95%;
+    
+    
+    width: 90%;
+    margin: auto;
+        
+    }
+    .singleinner{
+        display: grid;
+        grid-template-columns: 100%;
+       
+       
+    }
+    .btn{
+        width: 200px;
+        height: 60px;
     }
 }
 

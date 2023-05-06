@@ -28,13 +28,14 @@ import {
 import { useContext } from "react";
 import { AppContext } from "./AppContextProvider";
 import { useDispatch, useSelector } from "react-redux";
-import { loginuser } from "../Redux/login/action";
+import { postuser } from "../Redux/register/action";
 
-function Login() {
+function Register() {
+    const [name,setName]=useState("")
   const [email,setEmail]=useState("")
    const [password,setPassword]=useState("")
-   
-const {loading,message}=useSelector((store)=>store.loginUser)
+   const [register,setRegister]=useState(false)
+const {loading,message}=useSelector((store)=>store.user)
 const dispatch=useDispatch()
   const toast = useToast();
   const { auth, login, authUser, loginUser, UserName } = useContext(AppContext);
@@ -44,49 +45,35 @@ const dispatch=useDispatch()
  }
 
  const handleValid=async()=>{
-  if(email!=="" && password!==""){
+  if(name!=="" && email!=="" && password!==""){
  try {
-  
-    dispatch(loginuser(email,password)).then((res)=>{
+    dispatch(postuser(name,email,password)).then((res)=>{
         console.log(res)
-        if(res.msg=="Login successful"){
+        if(res.msg=="already registered please login"){
    toast({
-    title: "Login successful" ,
+    title: "User already registered Please Login" ,
 
-    status: "success",
+    status: "error",
     duration: 1000,
     isClosable: true,
  });
- localStorage.setItem("token",res.token)
-   navigate("/") 
-
- 
 
         }
-        if(res.msg=="user not found Register first"){
-          toast({
-            title: "No user found , Register first" ,
-        
-            status: "error",
-            duration: 1000,
-            isClosable: true,
-         });
-        }
-        if(res.msg=="Wrong credential"){
-          toast({
-            title: "Check your Password" ,
-        
-            status: "error",
-            duration: 1000,
-            isClosable: true,
-         });
-        }
 
-        
+        if(res.msg=="Registred successfully"){
+            toast({
+                title: "Registred Successfully" ,
+            
+                status: "success",
+                duration: 1000,
+                isClosable: true,
+             });
+             navigate("/login")  
+        }
     })
    
 
-
+  
   
  } catch (error) {
     toast({
@@ -154,11 +141,21 @@ const dispatch=useDispatch()
               color={"grey"}
               fontSize="22px"
             >
-              Login
+              Register
             </Text>
             <Input
               type={"text"}
-              marginTop={"-40px"}
+              marginTop={"-35px"}
+              width="90%"
+              marginLeft={"15px"}
+              placeholder="Enter Your Name"
+              size="lg"
+              required
+              onChange={(e) => setName(e.target.value)}
+            />
+            <Input
+              type={"text"}
+              marginTop={"-8px"}
               width="90%"
               marginLeft={"15px"}
               placeholder="Enter valid Email"
@@ -170,7 +167,7 @@ const dispatch=useDispatch()
               type={"password"}
               pattern=".{10,}"
               maxLength={"10"}
-              marginTop={"-20px"}
+              marginTop={"-10px"}
               width="90%"
               marginLeft={"15px"}
               placeholder="Enter Password"
@@ -178,13 +175,13 @@ const dispatch=useDispatch()
               
               onChange={(e) =>setPassword(e.target.value)}
             />
-            <Flex width={"100%"}  justifyContent={"center"} alignItems={"center"} gap={"5px"}>
+            <Flex width={"100%"}>
               {"    "}
-              <Text fontSize={"15px"} color={"grey"} marginLeft={"2px"}>
-                New To Myntra{" "}
+              <Text fontSize={"12px"} color={"grey"} marginLeft={"2px"}>
+                By Continuing, I agree to the
               </Text>
-              <Text fontSize={"17px"} color={"#ff3e6c"} fontWeight={"bold"}>
-                <Link to="/register">Register here</Link>
+              <Text fontSize={"12px"} color={"#ff3e6c"} fontWeight={"bold"}>
+                Terms of use & privacy policy.
               </Text>
             </Flex>
 
@@ -196,7 +193,7 @@ const dispatch=useDispatch()
               width={"320px"}
               disabled={loading}
             >
-             Login
+              Register
             </Button>
           
           </Box>
@@ -206,4 +203,4 @@ const dispatch=useDispatch()
   );
 }
 
-export default Login;
+export default Register;

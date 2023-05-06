@@ -3,27 +3,24 @@ let initialState = {
   loading: false,
   errormsg: "",
   error: false,
-  products: [],
+  message: "",
 };
 
-export const productReducer = (state = initialState, { type, payload }) => {
+export const userloginReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case types.PRODUCT_LOADING: {
+    case types.USER_LOADING: {
       return {
-        ...state,
         loading: true,
       };
     }
-    case types.PRODUCT_SUCCESS: {
+    case types.USER_SUCCESS: {
       return {
-        ...state,
         loading: false,
-        products: payload,
+        message: payload,
       };
     }
-    case types.PRODUCT_ERROR: {
+    case types.USER_ERROR: {
       return {
-        ...state,
         loading: false,
         error: true,
         errormsg: payload,

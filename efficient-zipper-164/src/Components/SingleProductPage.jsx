@@ -16,6 +16,8 @@ import { Link } from 'react-router-dom'
 import { useContext } from 'react'
 import { AppContext } from './AppContextProvider'
 import { useToast } from '@chakra-ui/react'
+import Footer from './Footer'
+import FooterRes from './FooterRes'
 const getLocalItems=()=>{
  
   let cart=localStorage.getItem("cart")
@@ -25,6 +27,7 @@ const getLocalItems=()=>{
   return  []
   }
 }
+const url="https://strange-crab-getup.cyclic.app/Product"
 function SingleProductPage() {
   const toast = useToast();
    const {length,Length}=useContext(AppContext)
@@ -33,18 +36,18 @@ function SingleProductPage() {
     const [loading,setLoading]=useState(false);
   const [item,setItem]=useState(getLocalItems())
     const getData=async(id)=>{
-        setLoading(true)
-      let res=await fetch(`https://render-mock-server-7ng4.onrender.com/Products/${id}`);
+        //setLoading(true)
+      let res=await fetch(`${url}/${id}`);
         let data=await res.json();
         setData(data);
-      setLoading(false)
+     // setLoading(false)
      
     }
     useEffect(()=>{
       getData(param.id)
       
     },[param.id])
-
+console.log(data)
     useEffect(()=>{
       localStorage.setItem("cart",JSON.stringify(item))
     
@@ -86,23 +89,23 @@ console.log(length)
   </BreadcrumbItem>
 
   <BreadcrumbItem isCurrentPage>
-    <BreadcrumbLink href='#'><Text as="b">{data.brand}</Text></BreadcrumbLink>
+    <BreadcrumbLink ><Text as="b">{data.brand}</Text></BreadcrumbLink>
   </BreadcrumbItem>
 </Breadcrumb></div>
 
 <Divider marginTop={"30px"} marginBottom={"30px"}/>
-    <Grid templateColumns='58% 38%' gap={4}>
-  <GridItem w='100%' h='auto'  >
-  <Grid templateColumns='48% 48%' gap={6}>
-  <GridItem w='100%' h='auto'  >
-    <Img  height={"auto" } marginLeft={"20px"} src={data.imageLink} alt='myntra'/>
+    <Box className='singleproduct'>
+  <GridItem   >
+  <Grid className='singleinner'>
+  <GridItem   >
+    <Img  height={"auto" } marginLeft={"10px"} src={data.imageLink} alt='myntra'/>
   </GridItem>
-  <GridItem w='100%' h='auto'  ><Img  height={"auto" } src={data.imageLink} alt='myntra'/>
+  <GridItem display={{ base: "none", lg: "block" }} ><Img  height={"auto" } src={data.imageLink} alt='myntra'/>
  </GridItem>
   
 </Grid>
   </GridItem>
-  <GridItem w='100%' h='auto'  >
+  <GridItem   >
   <Text fontSize='3xl' as="b">{data.brand}</Text>
   <Text fontSize='2xl' color={"grey"} marginTop={"-5px"}>{data.productName}</Text>
   <Box w="10%" p="0" border={"1px solid grey"}> <Flex alignItems={"center"}><Text as="b" margin={"5px"}>{data.rating}</Text> <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="blue" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></Flex> 
@@ -116,16 +119,17 @@ console.log(length)
     <Button marginTop={"10px"} marginLeft={"5px"} borderRadius={"50%"} backgroundColor={"white"} color={"black"} border={"1px"} variant='solid'>L</Button>
     <Button marginTop={"10px"} marginLeft={"5px"} borderRadius={"50%"} backgroundColor={"white"} color={"black"} border={"1px"} variant='solid'>XL</Button>
     <Button marginTop={"10px"}  marginLeft={"5px"} borderRadius={"50%"} backgroundColor={"white"} color={"black"} border={"1px"} variant='solid'>XXL</Button></Flex>
-   <Flex marginTop={"20px"}> <Button leftIcon={<Bag />} onClick={handleCart}  backgroundColor={"#ff3e6c"} color={"white"} width={"250px"} height={"60px"} marginTop={"10px"} variant='solid'>
+   <Flex marginTop={"20px"}> <Button leftIcon={<Bag />} onClick={handleCart}  backgroundColor={"#ff3e6c"} color={"white"}  variant='solid'>
         ADD TO BAG
   </Button>
-  <Button leftIcon={<Heart />} backgroundColor={"white"} color={"black"} border={"1px"} width={"200px"} height={"60px"} marginTop={"10px"}marginLeft={"10px"} variant='solid'>
-   ADD TO BAG
+  <Button leftIcon={<Heart />} className='btn' backgroundColor={"skyblue"} color={"white"}   marginLeft={"10px"} variant='solid'>
+   ADD TO WISHLIST
   </Button>
   </Flex>
   </GridItem>
   
-</Grid>
+</Box>
+<FooterRes/>
     </div>
   )
 }

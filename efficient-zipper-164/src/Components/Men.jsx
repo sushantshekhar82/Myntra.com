@@ -1,4 +1,6 @@
 import React from "react";
+import { store } from "../Redux/store";
+import { getMensData } from "../Redux/products/action";
 import {
   Divider,
   Flex,
@@ -10,6 +12,8 @@ import {
   useDisclosure,
   Heading,
   CheckboxGroup,
+  Box,
+  grid,
 } from "@chakra-ui/react";
 import {
   Breadcrumb,
@@ -28,6 +32,7 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { FaFilter } from "react-icons/fa";
 import FooterRes from "./FooterRes";
+import {useSelector,useDispatch} from "react-redux"
 import {
   Drawer,
   DrawerBody,
@@ -37,39 +42,49 @@ import {
   DrawerContent,
   DrawerCloseButton,
 } from "@chakra-ui/react";
-const getLocalItems = () => {
-  let wishlist = localStorage.getItem("wishlist");
-  if (wishlist) {
-    return JSON.parse(localStorage.getItem("wishlist"));
-  } else {
-    return [];
-  }
-};
+let wishlist=JSON.parse(localStorage.getItem("wishlist"))||[];
+// const getLocalItems = () => {
+//    wishlist = localStorage.getItem("wishlist");
+//   if (wishlist) {
+//     return JSON.parse(localStorage.getItem("wishlist"));
+//   } else {
+//     return [];
+//   }
+// };
+
+
 function Men() {
   const [value, setValue] = useState("1");
   const [value1, setValue1] = useState("1");
   const [color, setColor] = useState(false);
   const toast = useToast();
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [item, setItem] = useState(getLocalItems());
+ // const [loading, setLoading] = useState(false);
+  const [item, setItem] = useState(wishlist);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [placement, setPlacement] = React.useState("right");
-  const getData = async () => {
-    setLoading(true);
-    let res = await fetch(
-      `https://render-mock-server-7ng4.onrender.com/Products`
-    );
-    let data = await res.json();
-    setData(data);
-    setLoading(false);
-  };
-  useEffect(() => {
-    getData();
-  }, []);
-  useEffect(() => {
-    localStorage.setItem("wishlist", JSON.stringify(item));
-  }, [item]);
+   const {products,loading}=useSelector((store)=>store.product)
+   const dispatch = useDispatch();
+   useEffect(()=>{
+    dispatch(getMensData())
+   },[])
+   console.log("products",products)
+  // const getData = async () => {
+  //   setLoading(true);
+  //   let res = await fetch(
+  //     //`https://render-mock-server-7ng4.onrender.com/Products`
+  //     `http://localhost:4500/Products`
+  //   );
+  //   let data = await res.json();
+  //   setData(data);
+  //   setLoading(false);
+  // };
+  // useEffect(() => {
+  //   getData();
+  // }, []);
+  // useEffect(() => {
+  //   localStorage.setItem("wishlist", JSON.stringify(item));
+  // }, [item]);
   if (loading) {
     return (
       <img
@@ -86,16 +101,40 @@ function Men() {
       />
     );
   }
-  console.log(data);
+  //console.log(data);
   const handleWishlist = (data, id) => {
-    toast({
-      title: "Item added in wishlist",
+    
+    let flag=false
+      wishlist.map((el)=>{
+       if(el.id==data.id){
+        flag=true
+       return;
+       }
+      
+      
+      })
+      if(flag){
+        toast({
+                  title: "Item already in wishlist",
+            
+                  status: "error",
+                  duration: 3000,
+                  isClosable: true,
+                });
+      }else{
+        toast({
+          title: "Item added in wishlist",
+    
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+        setItem([...item, data]);
+      }
 
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    });
-    setItem([...item, data]);
+
+    
+    
   };
 
   return (
@@ -134,7 +173,7 @@ function Men() {
                 marginBottom={"5px"}
                 marginTop={"5px"}
               >
-                Category
+                Brands
               </Heading>
 
               <CheckboxGroup
@@ -143,23 +182,21 @@ function Men() {
                 // value={categoryfilter}
               >
                 <Stack direction={"column"}>
-                  <Checkbox value={"ring"} colorScheme="green">
+                  <Checkbox value={"roadster"} colorScheme="green">
                     Roadster
                   </Checkbox>
 
-                  <Checkbox value={"chain"} colorScheme="green">
+                  <Checkbox value={"Manyavar"} colorScheme="green">
                     Manyavar
                   </Checkbox>
-                  <Checkbox value={"pearl"} colorScheme="green">
+                  <Checkbox value={"WROGN"} colorScheme="green">
                     WROGN
                   </Checkbox>
 
-                  <Checkbox value={"necklace"} colorScheme="green">
-                    Necklace
+                  <Checkbox value={"puma"} colorScheme="green">
+                    Puma
                   </Checkbox>
-                  <Checkbox value={"earrings"} colorScheme="green">
-                    Earrings
-                  </Checkbox>
+                 
                 </Stack>
               </CheckboxGroup>
               <Heading
@@ -168,7 +205,7 @@ function Men() {
                 marginBottom={"5px"}
                 marginTop={"5px"}
               >
-                Category
+                Price
               </Heading>
 
               <CheckboxGroup
@@ -177,23 +214,18 @@ function Men() {
                 // value={categoryfilter}
               >
                 <Stack direction={"column"}>
-                  <Checkbox value={"ring"} colorScheme="green">
-                    Ring
+                  <Checkbox value={"139"} colorScheme="green">
+                    Rs 139 to Rs 5980
                   </Checkbox>
 
                   <Checkbox value={"chain"} colorScheme="green">
-                    Chain
+                  Rs 5981 to Rs 1089
                   </Checkbox>
                   <Checkbox value={"pearl"} colorScheme="green">
-                    Pearl
+                  Rs 1090 to Rs 17899
                   </Checkbox>
 
-                  <Checkbox value={"necklace"} colorScheme="green">
-                    Necklace
-                  </Checkbox>
-                  <Checkbox value={"earrings"} colorScheme="green">
-                    Earrings
-                  </Checkbox>
+                 
                 </Stack>
               </CheckboxGroup>
               <Heading
@@ -202,7 +234,7 @@ function Men() {
                 marginBottom={"5px"}
                 marginTop={"5px"}
               >
-                Category
+                Discount
               </Heading>
 
               <CheckboxGroup
@@ -211,65 +243,31 @@ function Men() {
                 // value={categoryfilter}
               >
                 <Stack direction={"column"}>
-                  <Checkbox value={"ring"} colorScheme="green">
-                    Ring
+                  <Checkbox value={"10"} colorScheme="green">
+                    10% and above
                   </Checkbox>
 
-                  <Checkbox value={"chain"} colorScheme="green">
-                    Chain
+                  <Checkbox value={"20"} colorScheme="green">
+                  20% and above
                   </Checkbox>
-                  <Checkbox value={"pearl"} colorScheme="green">
-                    Pearl
+                  <Checkbox value={"30"} colorScheme="green">
+                  30% and above
                   </Checkbox>
 
-                  <Checkbox value={"necklace"} colorScheme="green">
-                    Necklace
+                  <Checkbox value={"40"} colorScheme="green">
+                  40% and above
                   </Checkbox>
-                  <Checkbox value={"earrings"} colorScheme="green">
-                    Earrings
-                  </Checkbox>
+                  
                 </Stack>
               </CheckboxGroup>
 
-              <Heading
-                size={"sm"}
-                fontWeight={"bold"}
-                marginBottom={"5px"}
-                marginTop={"5px"}
-              >
-                Rating
-              </Heading>
-
-              <CheckboxGroup
-                colorScheme={"green"}
-                // onChange={handleChangestar}
-                // value={startfilter}
-              >
-                <Stack direction={"column"}>
-                  <Checkbox value={"5"} colorScheme="green">
-                    star
-                  </Checkbox>
-                  <Checkbox value={"4"} colorScheme="green">
-                    star
-                  </Checkbox>
-                  <Checkbox value={"3"} colorScheme="green">
-                    star
-                  </Checkbox>
-                  <Checkbox value={"2"} colorScheme="green">
-                    star
-                  </Checkbox>
-                  <Checkbox value={"1"} colorScheme="green">
-                    star
-                  </Checkbox>
-                </Stack>
-              </CheckboxGroup>
             </DrawerBody>
           </DrawerContent>
         </Drawer>
       </div>
 
-      <Grid templateColumns="23% 73%" gap={2}>
-        <GridItem w="100%" h="auto" display={{ base: "none", lg: "block" }}>
+      <Box className="productview" >
+        <GridItem  h="auto" display={{ base: "none", lg: "block" }}>
           <Text as="b" marginLeft={"15px"}>
             FILTERS
           </Text>
@@ -497,21 +495,23 @@ function Men() {
             </RadioGroup>
           </div>
         </GridItem>
-        <GridItem w="100%" h="auto" className="poductgrid">
-          {data?.map((el) => (
+        <GridItem  h="auto"  >
+          <div className="poductgrid">
+          {products?.map((el) => (
             <div
-              style={{ width: "250px", height: "300px", marginTop: "100px" }}
+              className="productgridinner"
               key={el.id}
             >
               <div
                 style={{
                   position: "relative",
-                  width: "250px",
-                  height: "300px",
+                  
                 }}
               >
                 <div className="zoom">
-                  <Img width={"210px"} height={"290px"} src={el.imageLink} />
+                <Link to={`/Products/${el._id}`}>
+                  <img  src={el.imageLink} />
+                  </Link>
                 </div>
                 <div className="rating">
                   <Flex>
@@ -541,8 +541,8 @@ function Men() {
                     {" "}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
+                      width="28"
+                      height="28"
                       viewBox="0 0 24 24"
                       fill={color ? "red" : "wheat"}
                       stroke="currentColor"
@@ -570,8 +570,9 @@ function Men() {
               </Link>
             </div>
           ))}
+        </div>
         </GridItem>
-      </Grid>
+      </Box>
       <FooterRes />
     </div>
   );

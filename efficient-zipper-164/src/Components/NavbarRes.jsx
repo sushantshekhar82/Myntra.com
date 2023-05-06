@@ -1,5 +1,5 @@
-import React, { ReactNode, useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -56,17 +56,36 @@ const NavbarRes = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen1, onOpen1, onClose1 } = useDisclosure();
   const [placement, setPlacement] = React.useState("left");
+  const [user,setUser]=useState("")
   const [cartNum, setCartNum] = useState(0);
-  const { length, auth, authUser, login, loginUser, name } =
-    useContext(AppContext);
+  const token=localStorage.getItem("token")
+  const navigate=useNavigate()
+  const { length, auth, authUser, login, loginUser,UserName, name } = useContext(AppContext);
 
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
-
+useEffect(()=>{
+  fetch("https://strange-crab-getup.cyclic.app/user/find", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("user",res[0].name);
+        loginUser(true);
+        UserName(res[0].name)
+       
+      
+      })
+      .catch((err) => console.log(err));
+},[token])
   const handleLogout = () => {
     login(false);
     loginUser(false);
+    localStorage.removeItem("token")
+    navigate("/")
   };
-
+console.log("name",name)
   return (
     <>
       <Box
@@ -147,7 +166,7 @@ const NavbarRes = () => {
             </div>
           </HStack>
           <Flex alignItems={"center"} margin={"3px"}>
-            {auth || authUser ? (
+            {token ? (
               <Menu>
                 <MenuButton
                   as={Button}

@@ -12,6 +12,7 @@ import Payment from './Payment'
 import Login from './Login'
 import PrivateRoute from './PrivateRoute'
 import EmptyCartPage from './EmptyCartPage'
+import Register from './Register'
 function AllRoutes() {
   return (
       <Routes>
@@ -28,6 +29,7 @@ function AllRoutes() {
         <Route path="/products/:id" element={<SingleProductPage/>}/>
         <Route path='/checkout' element={<CheckOut/>}/>
         <Route path='/payment' element={<Payment/>}/>
+        <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
      </Routes>
   )

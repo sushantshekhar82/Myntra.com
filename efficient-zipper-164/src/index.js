@@ -1,4 +1,6 @@
 import React from 'react';
+import { store } from './Redux/store';
+import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { ChakraProvider } from '@chakra-ui/react'
@@ -13,7 +15,9 @@ root.render(
     <ChakraProvider>
     <BrowserRouter>
     <AppContextProvider>
+    <Provider store={store}>
     <App />
+    </Provider>
     </AppContextProvider>
     </BrowserRouter>
     </ChakraProvider>

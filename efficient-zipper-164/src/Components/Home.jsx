@@ -16,6 +16,8 @@ function Home() {
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
+  
+ 
 
   return (
     <>
