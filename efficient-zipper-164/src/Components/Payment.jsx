@@ -28,17 +28,27 @@ function Payment() {
   const {length,Length}=useContext(AppContext);
   const handleOrder=()=>{
       if(captcha!==""){
-        if(captcha==="W68HP")
-        toast({
-          title: 'Order placed',
-          
-          status: 'success',
-          duration: 5000,
-          isClosable: true,
-        })
-        navigate("/");
-        localStorage.removeItem("cart");
-        Length(-1)
+        if(captcha==="W68HP"){
+          toast({
+            title: 'Order placed',
+            
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+          })
+          navigate("/");
+          localStorage.removeItem("cart");
+          Length(-1)
+        }else{
+          toast({
+            title: 'otp not match',
+            
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+          })
+        }
+       
         
       }else{
         toast({
@@ -96,10 +106,11 @@ function Payment() {
      <Box border={"1px solid red"} width={"150px"} height={"70px"} margin={"auto"}>
     <Img src="https://miro.medium.com/max/600/1*MHqIWdansPvRMEmUK2KNPw.png" marginTop={"5px"} />
      </Box>
-     <Box border={"1px solid transparent"}  width={"530px"} height={"70px"} margin={"auto"}>
-     <input className='input' type="text" value={captcha} onChange={(e)=>setCaptcha(e.target.value)}  placeholder="Enter code shown in above image" ></input>
-     <Button className='input' onClick={handleOrder}   backgroundColor={"#ff3e6c"} color={"white"} marginLeft={"70px"} width={"350px"} >PLACE ORDER</Button>
-
+     <Box className='orderotp'>
+     <input className='paymentinput' type="text" value={captcha} onChange={(e)=>setCaptcha(e.target.value)}  placeholder="Enter code shown in above image" ></input>
+     <Box className='btnpos'>
+     <Button className='orderbtn' onClick={handleOrder}   backgroundColor={"#ff3e6c"} color={"white"}  >PLACE ORDER</Button>
+     </Box>
      </Box>
     </TabPanel>
     <TabPanel>

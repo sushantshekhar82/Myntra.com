@@ -101,8 +101,10 @@ gap:2px;
 } 
 .cartprice{
     display: grid;
-    grid-template-rows: 150px 180px 230px;
+    grid-template-rows: auto auto auto;
     margin-top: 10px;
+    gap: 2px;
+    padding:5px ;
 
 }
 .input{
@@ -185,6 +187,43 @@ grid-template-columns: 58% 38%;
     margin-left: 300px;
     margin-top:35px ;
   
+}
+.orderbtn{
+    margin-left: 70px;
+    width: 300px;
+   
+}
+.address{
+    display: grid;
+    margin: auto;
+    justify-content: center;
+    width: 50%;
+    padding: 4px;
+    color: black;
+   
+}
+.addressbtn{
+    margin-left: 70px;
+    width: 350px;
+    margin-top: 5px;
+    
+  
+}
+.paymentinput{
+    border: 1px solid wheat;
+    width: 500px;
+    height: 50px;
+    margin:5px;
+    border-radius: 10px;
+   
+}
+.orderotp{
+    border: 1px solid transparent;
+    width: 500px;
+
+    height: 70px;
+    margin: auto;
+   
 }
 @media only screen and (min-width: 200px) and (max-width: 480px) {
     .homegrid{
@@ -321,6 +360,48 @@ grid-template-columns: 58% 38%;
         height: 200px;
         margin: auto;
     } 
+    .orderbtn{
+        margin-left: auto;
+        width: 200px;
+       
+    }
+    .input{
+        border: 1px solid wheat;
+        width: 350px;
+        height: 50px;
+       
+        border-radius: 10px;
+        padding: 5px;
+       
+    }
+    .address{
+        display: grid;
+       
+        justify-content: center;
+        align-items: center;
+        width: 95%;
+        padding: 4px;
+        color: black;
+       
+    }
+    .orderotp{
+        border: 1px solid transparent;
+        width: 100%;
+
+        height: auto;
+        margin: auto;
+       
+    }
+    .paymentinput{
+        border: 1px solid wheat;
+        width: 100%;
+        height: 50px;
+       font-size: 15px;
+        border-radius: 10px;
+        padding: 5px;
+       
+    }
+   
 }
 
 

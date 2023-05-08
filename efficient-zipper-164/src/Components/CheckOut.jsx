@@ -58,23 +58,24 @@ function CheckOut() {
   return (
     <div>
       <Grid templateColumns='70%' justifyContent={"center"} alignItems={"center"}>
-  <GridItem w='100%' h='auto'  alignItems={"center"} >
+  <GridItem   alignItems={"center"} >
   <Flex justifyContent={"center"}><Text fontWeight={"bold"} color={"black"}><Link to="/cart">BAG</Link></Text>------<Text fontWeight={"bold"} textAlign={"center"} color={"green.500"}><u>Address</u></Text>-----<Text fontWeight={"bold"} color={"black"}>PAYMENT</Text>
   </Flex>
-  <Box  display={"grid"} margin={"auto"} justifyContent={"center"} w='60%' p={4} color='Black'>
+  <Box  className='address'>
   <Text fontWeight={"bold"} color={"black"}>Contact Detail</Text>
   <input className='input' type="text" value={name} onChange={(e)=>setName(e.target.value)} placeholder="Enter your name" ></input>
+  <Text fontWeight={"bold"} color={"black"}>Mobile</Text>
   <input className='input' type="number" value={mobile} onChange={(e)=>setMobile(e.target.value)} placeholder="Enter your Mobile Number" ></input>
   <Text fontWeight={"bold"} color={"black"}>Address</Text>
   <input className='input' type="text" value={address} onChange={(e)=>setAddress(e.target.value)} placeholder="Enter your Address" ></input>
   <Text fontWeight={"bold"} color={"black"}>State</Text>
-  <Select value={state} onChange={(e)=>setState(e.target.value)}>
+  <select className='input'  value={state} onChange={(e)=>setState(e.target.value)}>
     <option >Select your state</option>
      <option value={"bihar"}>Bihar</option>
      <option value={"delhi"}>Delhi</option>
      <option  value={"karnataka"}>Karnataka</option>
-  </Select>
-  <Button className='input' onClick={handleSubmit}  backgroundColor={"#ff3e6c"} color={"white"} marginLeft={"70px"} width={"350px"} >Add Address</Button>
+  </select>
+  <Button   onClick={handleSubmit}  backgroundColor={"#ff3e6c"} color={"white"}  >Add Address</Button>
 </Box>
   </GridItem>
  

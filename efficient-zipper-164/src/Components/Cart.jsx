@@ -149,6 +149,7 @@ function Cart() {
          <Box display={{ base: "none", lg: "block" }}><Img src='https://pbs.twimg.com/media/Ejj8fKYUcAABx2m.jpg' height={"180px"} width={"100%"} alt="myntra gift"/></Box>
          <div>
           <Divider margin={"20px"}/>
+     
          <Text color={"Red"} as={"b"} >Price Details</Text><br/>
          <div style={{display:"flex",justifyContent:"space-between",fontWeight:"bold"}}>
              <div>Total MRP</div>
@@ -168,11 +169,14 @@ function Cart() {
              <div><Text color={"green.500"} marginLeft={"5px"}>Rs {discount===200?  finalPrice: totalPrice}</Text></div>
          </div>
          </div>
-       <Link to="/checkout"> <Button  backgroundColor={"#ff3e6c"} color={"white"} marginLeft={"70px"} width={"300px"} >Place Order</Button></Link>
+         <Box className='btnpos'>
+       <Link to="/checkout"> <Button className='orderbtn'  backgroundColor={"#ff3e6c"} color={"white"} >Place Order</Button></Link>
+       </Box>
       </div>
      </GridItem>
-  
+    
    </Box>
+   
    </>
      }
     </div>
