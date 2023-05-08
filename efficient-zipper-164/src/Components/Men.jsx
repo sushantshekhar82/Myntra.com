@@ -556,7 +556,7 @@ function Men() {
                   </div>
                 </div>
               </div>
-              <Link to={`/Products/${el.id}`}>
+              <Link to={`/Products/${el._id}`}>
                 {" "}
                 <div>
                   <Text as={"b"}>{el.brand}</Text>

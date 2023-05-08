@@ -73,9 +73,9 @@ function Cart() {
      <Flex justifyContent={"center"}>
   <Text fontWeight={"bold"} textAlign={"center"} color={"green.500"}><u>BAG</u></Text>------  <Text fontWeight={"bold"} color={"black"}>ADDRESS</Text>-----<Text fontWeight={"bold"} color={"black"}>PAYMENT</Text>
   </Flex>
-     <Grid width={"80%"} margin={"auto"} templateColumns='60% 40%' gap={6}>
+     <Box className='cart'>
       
-     <GridItem w='100%' h='auto' marginTop={"30px"} >
+     <GridItem  marginTop={"30px"} >
      <Accordion   allowMultiple textDecoration={"none"}>
   <AccordionItem>
     <h2>
@@ -107,21 +107,28 @@ function Cart() {
 <div className='cartgrid'>
  <div className='image'><Img src={el.imageLink} /></div>
  <div>
-  <Text fontSize={"sm"} marginTop={"5px"} as={"b"}>{el.brand}</Text>
-  <Text marginTop={"5px"} fontSize={"sm"}>{el.productName}</Text>
-  <Flex><Text  fontSize={"sm"} as={"b"}>Rs {el.price}</Text><Text marginLeft={"5px"} fontSize={"sm"} as={"b"} color={"orange"} >{el.discount}% OFF</Text></Flex>
- <Flex> <Select marginLeft={"5px"} marginTop={"10px"} width={"70px"} height={"25px"}>
-  <option value='option1'>M</option>
-  <option value='option2'>L</option>
-  <option value='option3'>S</option>
+  <Text fontSize={"sm"}  as={"b"}>{el.brand}</Text>
+  <Text  fontSize={"sm"}>{el.productName}</Text>
+  <Box><Text  fontSize={"sm"} as={"b"}>Rs {el.price}</Text><Text margin={"2px"}  fontSize={"sm"} as={"b"} color={"orange"} >{el.discount}% OFF</Text>
+  </Box>
+ <Box display={'flex'}> <Select marginLeft={"5px"} marginTop={"10px"} width={"150px"} height={"25px"}>
+ <option value=''>Choose Size</option>
+  <option value='M'>S</option>
+  <option value='L'>M</option>
+  <option value='S'>L</option>
+  <option value='XL'>XL</option>
+  <option value='XXL'>XL</option>
 </Select>
-<Select marginLeft={"5px"} marginTop={"10px"} width={"90px"} height={"25px"}>
-  <option value='option1'>Qty 1</option>
-  <option value='option2'>Qty 2</option>
-  <option value='option3'>Qty 3</option>
+<Select marginLeft={"5px"} marginTop={"10px"} width={"150px"} height={"25px"}>
+<option value=''>Choose Quantity</option>
+  <option value='option1'>1</option>
+  <option value='option2'>2</option>
+  <option value='option3'>3</option>
 </Select>
-</Flex>
-  <Button marginLeft={"250px"} marginTop={"30px"} colorScheme='red' onClick={()=>handleRemove(el.id)}>Remove</Button>
+</Box>
+<Box className='btnpos'>
+  <Button className='cartbtn' colorScheme='red' onClick={()=>handleRemove(el.id)}>Remove</Button>
+  </Box>
  </div>
 </div>
 
@@ -129,17 +136,17 @@ function Cart() {
 }
 
      </GridItem>
-     <GridItem w='100%' h='10'  >
+     <GridItem   >
       
       <div className='cartprice'>
-         <div>
+         <Box display={{ base: "none", lg: "block" }}>
           <Text color={"Red"} as={"b"} >Apply Coupons</Text><br/>
           <Button border={"3px dashed rgb(202, 5, 120)"} marginTop={"10px"} disabled={discount===200} onClick={()=>handleDiscount}>MYNTRA200</Button><br/>
           <Text color={"black"} as={"b"}>Save Rs202</Text><br/>
           <Text color={"black"} as={"b"}>Rs200  off on Minimum  purchase of Rs599</Text>
           
-         </div>
-         <div><Img src='https://pbs.twimg.com/media/Ejj8fKYUcAABx2m.jpg' height={"180px"} width={"100%"} alt="myntra gift"/></div>
+         </Box>
+         <Box display={{ base: "none", lg: "block" }}><Img src='https://pbs.twimg.com/media/Ejj8fKYUcAABx2m.jpg' height={"180px"} width={"100%"} alt="myntra gift"/></Box>
          <div>
           <Divider margin={"20px"}/>
          <Text color={"Red"} as={"b"} >Price Details</Text><br/>
@@ -165,7 +172,7 @@ function Cart() {
       </div>
      </GridItem>
   
-   </Grid>
+   </Box>
    </>
      }
     </div>
