@@ -1,16 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useContext } from 'react';
 import { AppContext } from './AppContextProvider';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useToast } from '@chakra-ui/react';
+let token=localStorage.getItem("token")
 function PrivateRoute({children}) {
+  
+  const navigate=useNavigate()
    const { auth,login,authUser,loginUser } = useContext(AppContext);
  
  
-  if (auth===false || authUser===false ) {
-    return <Navigate to="/login" />;
-  }else if(auth===true || authUser===true){
-    return children;
-  }
+   const toast = useToast()
+  
+   
+    if(token==null){
+        toast({
+            title: 'Please Login First',
+            
+            status: 'warning',
+            duration: 2000,
+            isClosable: true,
+          })
+        return <Navigate to="/login"/>
+    }
+    return children
  
  
 }
