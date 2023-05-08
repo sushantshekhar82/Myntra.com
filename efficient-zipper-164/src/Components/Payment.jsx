@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Grid, GridItem,Select,Text,Button, Divider, Img } from '@chakra-ui/react' 
+import { Flex, Grid, GridItem,Select,Text,Button, Divider, Img, useDisclosure } from '@chakra-ui/react' 
 import { Link } from 'react-router-dom'
 import {
   Accordion,
@@ -15,6 +15,16 @@ import {
   OrderedList,
   UnorderedList,
 } from '@chakra-ui/react'
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
+
 import { useNavigate } from 'react-router-dom'
 import { useToast } from '@chakra-ui/react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
@@ -23,6 +33,7 @@ import { useContext } from 'react'
 import { AppContext } from './AppContextProvider'
 function Payment() {
   const [captcha,setCaptcha]=useState("")
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const navigate=useNavigate()
   const {length,Length}=useContext(AppContext);
@@ -36,9 +47,12 @@ function Payment() {
             duration: 5000,
             isClosable: true,
           })
-          navigate("/");
+
+          onOpen();
           localStorage.removeItem("cart");
           Length(-1)
+         
+
         }else{
           toast({
             title: 'otp not match',
@@ -124,6 +138,35 @@ function Payment() {
   </GridItem>
  
 </Grid>
+<Modal isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader >Success</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                <Img width={"100%"}   src="https://cdn.dribbble.com/users/1238709/screenshots/4069900/success_celebration_800x600.gif"/>
+                  
+                </ModalBody>
+
+                <ModalFooter>
+                <Link to="/">
+                  <Button colorScheme="blue" mr={3} onClick={onClose}>
+                    
+                    Close
+                  </Button>
+                  </Link>
+                  <Link to="/">
+                  <Button
+                   
+                    backgroundColor={"#ff3e6c"}
+                    color="white"
+                  >
+                   Continue Shopping
+                  </Button>
+                  </Link>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
     </div>
   )
 }
