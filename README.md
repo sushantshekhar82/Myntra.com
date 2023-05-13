@@ -1,4 +1,4 @@
-<h1>Project: Myntra.com Clone</h1>
+<h1>Project: Myntra.com Clone(Fully Responsive)</h1>
 <h2>Teck Stack:</h2>
 <ul>
 <li>React</li>
