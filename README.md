@@ -2,11 +2,16 @@
 <h2>Teck Stack:</h2>
 <ul>
 <li>React</li>
+  <li>Redux</li>
+  <li>MongoDb</li>
+  <li>Expressjs</li>
+  <li>Nodejs</li>
 <li>JSON Server</li>
 <li>Render(Heroku)</li>
 <li>Javascript</li>
 <li>Chakra UI</li>
 </ul>
+
 <h2>Screenshot of my project</h2>
 <h3>Home Page</h3>
 
