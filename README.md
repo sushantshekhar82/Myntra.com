@@ -1,4 +1,5 @@
-<h1>Project: Myntra.com Clone(Fully Responsive)</h1>
+<h1>Project: Myntra.com Clone Solo project(Fully Responsive)</h1>
+<h2>Backend:<a href="https://github.com/sushantshekhar82/Backend_Myntra">Myntra complete backend code</a></h2>
 <h2>Teck Stack:</h2>
 <ul>
 <li>React</li>
