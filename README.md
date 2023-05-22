@@ -1,12 +1,18 @@
-<h1>Project: Myntra.com Clone</h1>
+<h1>Project: Myntra.com Clone Solo project(Fully Responsive)</h1>
+<h2>Backend:<a href="https://github.com/sushantshekhar82/Backend_Myntra">Myntra complete backend code</a></h2>
 <h2>Teck Stack:</h2>
 <ul>
 <li>React</li>
+  <li>Redux</li>
+  <li>MongoDb</li>
+  <li>Expressjs</li>
+  <li>Nodejs</li>
 <li>JSON Server</li>
 <li>Render(Heroku)</li>
 <li>Javascript</li>
 <li>Chakra UI</li>
 </ul>
+
 <h2>Screenshot of my project</h2>
 <h3>Home Page</h3>
 
@@ -32,6 +38,11 @@
 
 <h3>Payment Page</h3>
 <img src="https://user-images.githubusercontent.com/105901300/213777965-a8fa7cc2-0554-46e5-9030-48d9c0bf776b.png" alt="Myntra payment page"/>
+
+<img src="https://github.com/sushantshekhar82/Myntra.com/assets/105901300/7b1c6b18-9540-42ab-b334-73923aa7d005" alt="Myntra order succss"/>
+
+Thank you....:)
+
 
 
 
