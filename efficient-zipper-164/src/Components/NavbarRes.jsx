@@ -18,6 +18,7 @@ import {
   Badge,
   Img,
   Text,
+  Spinner,
 } from "@chakra-ui/react";
 import {
   Drawer,
@@ -36,6 +37,8 @@ import {
 } from "@chakra-ui/icons";
 import { AppContext } from "./AppContextProvider";
 import Form from "react-bootstrap/Form";
+import { useDispatch, useSelector } from "react-redux";
+import { getCart } from "../Redux/cart/action";
 const Links = ["Dashboard", "Projects", "Team"];
 
 const NavLink = ({ children }) => (
@@ -60,9 +63,10 @@ const NavbarRes = () => {
   const [cartNum, setCartNum] = useState(0);
   const token=localStorage.getItem("token")
   const navigate=useNavigate()
-  const { length, auth, authUser, login, loginUser,UserName, name } = useContext(AppContext);
-
-  const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
+  const {loading,cart,totallength}=useSelector((store)=>store.cart)
+  const { length, auth, authUser, login, loginUser,UserName, name,UserId,userid,Length } = useContext(AppContext);
+  const dispatch=useDispatch()
+  //const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
 useEffect(()=>{
   fetch("https://strange-crab-getup.cyclic.app/user/find", {
       headers: {
@@ -71,7 +75,8 @@ useEffect(()=>{
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log("user",res[0].name);
+       
+        UserId(res[0]._id)
         loginUser(true);
         UserName(res[0].name)
        
@@ -79,10 +84,33 @@ useEffect(()=>{
       })
       .catch((err) => console.log(err));
 },[token])
+useEffect(()=>{
+  fetch(`https://strange-crab-getup.cyclic.app/cart/${userid}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log("reducer cart",res);
+      
+
+      
+     
+    
+    })
+    .catch((err) => console.log(err.message));
+
+
+},[token])
+
+
   const handleLogout = () => {
     login(false);
     loginUser(false);
     localStorage.removeItem("token")
+    dispatch(getCart(userid))
+    window.location.reload()
     navigate("/")
   };
 console.log("name",name)
@@ -271,7 +299,7 @@ console.log("name",name)
               color={"white"}
               margin={"-8px"}
             >
-              {length}
+              {loading? <Spinner size='xs' />:totallength}
             </Badge>
           </Flex>
         </Flex>

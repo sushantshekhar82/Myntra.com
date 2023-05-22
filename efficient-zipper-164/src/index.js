@@ -14,11 +14,13 @@ root.render(
  
     <ChakraProvider>
     <BrowserRouter>
-    <AppContextProvider>
+    
     <Provider store={store}>
+    <AppContextProvider>
     <App />
-    </Provider>
     </AppContextProvider>
+    </Provider>
+   
     </BrowserRouter>
     </ChakraProvider>
 

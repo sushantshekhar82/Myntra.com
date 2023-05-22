@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { useState } from 'react'
 import { AppContext } from './AppContextProvider'
 import EmptyCartPage from './EmptyCartPage'
-import { Button, Divider, Grid, GridItem ,Img} from '@chakra-ui/react'
+import { Button, Divider, Grid, GridItem ,Img, useToast} from '@chakra-ui/react'
 import {
   Accordion,
   AccordionItem,
@@ -22,6 +22,8 @@ import {
 import { Select } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteCart, getCart, quantityinc } from '../Redux/cart/action'
 
 const getLocalItems=()=>{
  
@@ -37,38 +39,55 @@ function Cart() {
   const [item,setItem]=useState(getLocalItems())
   const [finalPrice,setFinalPrice]=useState(0)
   const [discount,setDiscount]=useState(0)
+  const [count,setCount]=useState(0)
   const [price,setPrice]=useState(0)
-  const {length,Length}=useContext(AppContext)
-  console.log(item)
-  const handleRemove=(id)=>{
-   let items=JSON.parse(localStorage.getItem("cart"));
-   items=items.filter((el)=>el.id !==id);
-   localStorage.setItem("cart",JSON.stringify(items))
-  setItem(getLocalItems()) 
-  Length(-item.length);
-  
-  }
+  const {length,Length,userid}=useContext(AppContext)
+  const {loading,cart,totallength,totalmoney}=useSelector((store)=>store.cart)
+  const dispatch=useDispatch()
+  const toast = useToast();
   const [totalPrice,setTotalPrice]=useState(0)
-  useEffect(()=>{
-    const total = item.reduce((prev, cur) => (cur.price * 1) + prev, 0);
-    setTotalPrice(total)
-    setFinalPrice(price)
-  },[length])
+  const handleRemove=(id)=>{
+  //  let items=JSON.parse(localStorage.getItem("cart"));
+  //  items=items.filter((el)=>el.id !==id);
+  //  localStorage.setItem("cart",JSON.stringify(items))
+  // setItem(getLocalItems()) 
+  // Length(-item.length);
+  dispatch(deleteCart(id))
+  
+}
+useEffect(()=>{
+  console.log("before",cart)
+dispatch(getCart(userid))
+console.log("after",cart)
+},[count])
+  
+
+    // const total = cart.reduce((prev, cur) => (cur.price * cur.quantity) + prev, 0);
+    // setTotalPrice(total)
+    // setFinalPrice(price)
+
   const handleDiscount=()=>{
     const cur=totalPrice-200
     setPrice(cur)
      setFinalPrice(price)
     setDiscount(200)
   }
+  useEffect(()=>{
+ dispatch(getCart(userid))
+console.log("useeffect all")
+  },[])
 
   const handleCheckout=()=>{
 
   }
-  console.log(totalPrice,finalPrice,price);
+  if(loading){
+    return <img style={{display:"flex",alignItems:"center",justifyContent:"center",margin:"auto"}} width="300px" height="300px"  src="https://www.appcoda.com/learnswiftui/images/animation/swiftui-animation-4.gif" alt="progress"/>
+  }
+ console.log("cart page me",totalmoney)
   return (
     <div>
-     {length===0||null?
-     <EmptyCartPage/>:
+     {totallength===0?
+     <EmptyCartPage/>: 
      <>
      <Flex justifyContent={"center"}>
   <Text fontWeight={"bold"} textAlign={"center"} color={"green.500"}><u>BAG</u></Text>------  <Text fontWeight={"bold"} color={"black"}>ADDRESS</Text>-----<Text fontWeight={"bold"} color={"black"}>PAYMENT</Text>
@@ -103,31 +122,39 @@ function Cart() {
   
 </Accordion>
 {
-  item?.map((el)=>(
-<div className='cartgrid'>
+  cart?.map((el)=>(
+<div className='cartgrid' key={el._id}>
  <div className='image'><Img src={el.imageLink} /></div>
  <div>
   <Text fontSize={"sm"}  as={"b"}>{el.brand}</Text>
   <Text  fontSize={"sm"}>{el.productName}</Text>
   <Box><Text  fontSize={"sm"} as={"b"}>Rs {el.price}</Text><Text margin={"2px"}  fontSize={"sm"} as={"b"} color={"orange"} >{el.discount}% OFF</Text>
   </Box>
- <Box display={'flex'}> <Select marginLeft={"5px"} marginTop={"10px"} width={"150px"} height={"25px"}>
+  <Flex alignItems={"center"}><Text>Quantity-</Text><Text fontSize={"sm"} as={"b"} color={"pink.400"}>{el.quantity}</Text> </Flex>
+  
+ <Box display={'flex'}> <Select marginLeft={"5px"} marginTop={"10px"} width={"150px"} height={"25px"} value={el.size} onChange={(e)=>e.target.value}>
  <option value=''>Choose Size</option>
-  <option value='M'>S</option>
-  <option value='L'>M</option>
-  <option value='S'>L</option>
+  <option value='S' >S</option>
+  <option value='M'>M</option>
+  <option value='L'>L</option> 
   <option value='XL'>XL</option>
   <option value='XXL'>XL</option>
 </Select>
-<Select marginLeft={"5px"} marginTop={"10px"} width={"150px"} height={"25px"}>
+<Select marginLeft={"5px"} marginTop={"10px"} width={"150px"} height={"25px"} value={el.quantity} onChange={(e)=>{dispatch(quantityinc(el._id,e.target.value))
+    setCount(count=>count+1)
+
+}}>
 <option value=''>Choose Quantity</option>
-  <option value='option1'>1</option>
-  <option value='option2'>2</option>
-  <option value='option3'>3</option>
+  <option value='1'>1</option>
+  <option value='2'>2</option>
+  <option value='3'>3</option>
 </Select>
 </Box>
 <Box className='btnpos'>
-  <Button className='cartbtn' colorScheme='red' onClick={()=>handleRemove(el.id)}>Remove</Button>
+  <Button className='cartbtn' colorScheme='red' disabled={loading} onClick={()=>{
+    handleRemove(el._id)
+    setCount(count=>count+1)
+    }}>Remove</Button>
   </Box>
  </div>
 </div>
@@ -153,7 +180,7 @@ function Cart() {
          <Text color={"Red"} as={"b"} >Price Details</Text><br/>
          <div style={{display:"flex",justifyContent:"space-between",fontWeight:"bold"}}>
              <div>Total MRP</div>
-             <div>Rs {totalPrice}</div>
+             <div>Rs {totalmoney}</div>
          </div>
          <div style={{display:"flex",justifyContent:"space-between",fontWeight:"bold"}}>
              <div>Myntra Discount</div>
@@ -166,7 +193,7 @@ function Cart() {
          <Divider margin={"20px"}/>
          <div style={{display:"flex",justifyContent:"space-between",fontWeight:"bold"}}>
              <div>Total Amount</div>
-             <div><Text color={"green.500"} marginLeft={"5px"}>Rs {discount===200?  finalPrice: totalPrice}</Text></div>
+             <div><Text color={"green.500"} marginLeft={"5px"}>Rs {totalmoney}</Text></div>
          </div>
          </div>
          <Box className='btnpos'>
@@ -178,7 +205,7 @@ function Cart() {
    </Box>
    
    </>
-     }
+      } 
     </div>
   )
 

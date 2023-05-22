@@ -29,6 +29,7 @@ import { useContext } from "react";
 import { AppContext } from "./AppContextProvider";
 import { useDispatch, useSelector } from "react-redux";
 import { loginuser } from "../Redux/login/action";
+import { getCart } from "../Redux/cart/action";
 
 function Login() {
   const [email,setEmail]=useState("")
@@ -37,7 +38,7 @@ function Login() {
 const {loading,message}=useSelector((store)=>store.loginUser)
 const dispatch=useDispatch()
   const toast = useToast();
-  const { auth, login, authUser, loginUser, UserName } = useContext(AppContext);
+  const { auth, login, authUser, loginUser, UserName,userid } = useContext(AppContext);
   const navigate = useNavigate();
  let postdata=async()=>{
    
@@ -58,6 +59,7 @@ const dispatch=useDispatch()
     isClosable: true,
  });
  localStorage.setItem("token",res.token)
+ dispatch(getCart(userid))
    navigate("/") 
 
  

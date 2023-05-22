@@ -1,5 +1,5 @@
 import React from 'react'
-import { Divider, Flex, Grid, GridItem, Img } from '@chakra-ui/react'
+import { Divider, Flex, Grid, GridItem, Img, useSlider } from '@chakra-ui/react'
 import { Text,Box } from '@chakra-ui/react'
 import { ChevronRightIcon} from '@chakra-ui/icons'
 import { Button} from '@chakra-ui/react'
@@ -18,6 +18,8 @@ import { AppContext } from './AppContextProvider'
 import { useToast } from '@chakra-ui/react'
 import Footer from './Footer'
 import FooterRes from './FooterRes'
+import {useDispatch,useSelector} from 'react-redux'
+import { addCart, getCart } from '../Redux/cart/action'
 const getLocalItems=()=>{
  
   let cart=localStorage.getItem("cart")
@@ -27,14 +29,21 @@ const getLocalItems=()=>{
   return  []
   }
 }
+
 const url="https://strange-crab-getup.cyclic.app/Product"
 function SingleProductPage() {
   const toast = useToast();
-   const {length,Length}=useContext(AppContext)
+   const {length,Length,userid}=useContext(AppContext)
+   const {loading,cart,totallength}=useSelector((store)=>store.cart)
     const [data,setData]=useState([])
+    const [duplicate,setDuplicate]=useState()
+    const [count,setCount]=useState(0)
     const param=useParams()
-    const [loading,setLoading]=useState(false);
+   
   const [item,setItem]=useState(getLocalItems())
+  const [cartdata,setCartdata]=useState([])
+  const [size,setSize]=useState("")
+  const dispatch=useDispatch()
     const getData=async(id)=>{
         //setLoading(true)
       let res=await fetch(`${url}/${id}`);
@@ -47,11 +56,22 @@ function SingleProductPage() {
       getData(param.id)
       
     },[param.id])
-console.log(data)
     useEffect(()=>{
-      localStorage.setItem("cart",JSON.stringify(item))
+      console.log("before",cart)
+    dispatch(getCart(userid))
+    console.log("after",cart)
+    },[count])
+// useEffect(()=>{
+//   let localcart=JSON.parse( localStorage.getItem("cart"))
+//   if(localcart){
+//     setCartdata(localcart)
+//   }
+// },[])
+//     useEffect(()=>{
+
+//       localStorage.setItem("cart",JSON.stringify(item))
     
-    },[item])
+//     },[item])
 
     if(loading){
         return <img style={{display:"flex",alignItems:"center",justifyContent:"center",margin:"auto"}} width="300px" height="300px"  src="https://www.appcoda.com/learnswiftui/images/animation/swiftui-animation-4.gif" alt="progress"/>
@@ -65,18 +85,92 @@ console.log(data)
     }
 
   const handleCart=()=>{
-    setItem([...item,data])
-    Length(item.length);
-    
+ let token=localStorage.getItem('token')
+ var duplicate=cart.filter((el)=>el._id===data._id);
+ if(token){
+  if(size==""){
     toast({
-      title: 'Item added',
+      title: 'Select Size First',
       
-      status: 'success',
-      duration: 5000,
+      status: 'warning',
+      duration: 2000, 
+      isClosable: true,
+    });
+  }else{
+   
+    console.log(duplicate)
+    if(duplicate.length>0){
+      toast({
+        title: 'Item already in Cart',
+        
+        status: 'warning',
+        duration: 2000,
+        isClosable: true,
+      });
+    }else {
+      dispatch(addCart({...data,size,quantity:1}))
+      setCount(count=>count+1)
+      toast({
+        title: 'Added to cart',
+        
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+   
+ }
+  
+ 
+    
+  
+   
+
+  }else{
+    toast({
+      title: 'Login First',
+      
+      status: 'warning',
+      duration: 2000, 
       isClosable: true,
     });
   }
-console.log(length)
+
+
+  
+  // console.log(data)
+  //  setDuplicate(cartdata.find(el => el._id == data._id))
+  //  console.log("duplicate",duplicate)
+  //   if (duplicate) {
+  //     alert('Item already present');
+  //   }else{
+
+  //     setItem([...item,data])
+  //     Length(item.length);
+      
+  //     toast({
+  //       title: 'Item added',
+        
+  //       status: 'success',
+  //       duration: 5000,
+  //       isClosable: true,
+  //     });
+   // }
+   
+  }
+//   const addToCart = (newProduct) => {
+//   const prevProduct = cart[newProduct._id];
+//   const prevQuatity = prevProduct.quantity || 0;
+//   setCart((prev) => ({
+//     ...prev,
+//     [newProduct.Id]: {
+//       ...newProduct,
+//       quantity: prevQuatity + 1,
+//     },
+//   }));
+// };
+
+console.log("totlalllll",totallength)
   return (
     <div>
         <div><Breadcrumb marginLeft={"15px"} spacing='8px' separator={<ChevronRightIcon color='gray.500' />}>
@@ -113,12 +207,12 @@ console.log(length)
     <Divider margin={"5px"} color={"grey"}/>
     <Flex> <Text fontSize='3xl' as={"b"}>Rs {data.price}</Text><Text color={"orange"} marginLeft={"5px"} fontSize='3xl'>({data.discount}% OFF)</Text></Flex>
     <Text fontSize='sm' as={"b"} color={"green.300"}>inclusive all text</Text>
-    <Flex><Text as={"b"} color={"blackAlpha.800"}>SELECT SIZE</Text><Flex alignItems={"center"}><Text marginLeft={"10px"} as={"b"} fontSize={"sm"}  color={'pink.400'}>SIZE CHART</Text><ChevronRightIcon/></Flex></Flex>
-    <Flex marginTop={"20px"}><Button marginTop={"10px"} borderRadius={"50%"} backgroundColor={"white"} color={"black"} border={"1px"} variant='solid'>S</Button>
-    <Button marginTop={"10px"} marginLeft={"5px"} borderRadius={"50%"} backgroundColor={"white"} color={"black"} border={"1px"} variant='solid'>M</Button>
-    <Button marginTop={"10px"} marginLeft={"5px"} borderRadius={"50%"} backgroundColor={"white"} color={"black"} border={"1px"} variant='solid'>L</Button>
-    <Button marginTop={"10px"} marginLeft={"5px"} borderRadius={"50%"} backgroundColor={"white"} color={"black"} border={"1px"} variant='solid'>XL</Button>
-    <Button marginTop={"10px"}  marginLeft={"5px"} borderRadius={"50%"} backgroundColor={"white"} color={"black"} border={"1px"} variant='solid'>XXL</Button></Flex>
+    <Flex><Text as={"b"} color={"blackAlpha.800"}>SELECT SIZE</Text><Flex alignItems={"center"}><Text marginLeft={"10px"} as={"b"} fontSize={"sm"}  color={'pink.400'}>{size?size:"SIZE CHART"}</Text><ChevronRightIcon/></Flex></Flex>
+    <Flex marginTop={"20px"}><Button marginTop={"10px"} borderRadius={"50%"} backgroundColor={"white"} color={"black"} border={"1px"} variant='solid' onClick={()=>setSize("S")}>S</Button>
+    <Button marginTop={"10px"} marginLeft={"5px"} borderRadius={"50%"} backgroundColor={"white"} color={"black"} border={"1px"} variant='solid' onClick={()=>setSize("M")}>M</Button>
+    <Button marginTop={"10px"} marginLeft={"5px"} borderRadius={"50%"} backgroundColor={"white"} color={"black"} border={"1px"} variant='solid' onClick={()=>setSize("L")}>L</Button>
+    <Button marginTop={"10px"} marginLeft={"5px"} borderRadius={"50%"} backgroundColor={"white"} color={"black"} border={"1px"} variant='solid' onClick={()=>setSize("XL")}>XL</Button>
+    <Button marginTop={"10px"}  marginLeft={"5px"} borderRadius={"50%"} backgroundColor={"white"} color={"black"} border={"1px"} variant='solid' onClick={()=>setSize("XXL")}>XXL</Button></Flex>
    <Flex marginTop={"20px"}> <Button leftIcon={<Bag />} onClick={handleCart}  backgroundColor={"#ff3e6c"} color={"white"}  variant='solid'>
         ADD TO BAG
   </Button>

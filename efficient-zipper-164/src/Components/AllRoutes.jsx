@@ -25,7 +25,7 @@ function AllRoutes() {
         <Route path='/studio' element={<EmptyCartPage/>}/>
         <Route path='/admin' element={<PrivateRoute><Admin/></PrivateRoute>}/>
         <Route path='/wishlist' element={<Wishlist/>}/>
-        <Route path='/cart' element={<Cart/>}/>
+        <Route path='/cart' element={<PrivateRoute><Cart/></PrivateRoute>}/>
         <Route path="/products/:id" element={<SingleProductPage/>}/>
         <Route path='/checkout' element={<PrivateRoute><CheckOut/></PrivateRoute>}/>
         <Route path='/payment' element={<PrivateRoute><Payment/></PrivateRoute>}/>

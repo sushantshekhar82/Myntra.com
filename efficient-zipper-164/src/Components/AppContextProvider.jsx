@@ -7,6 +7,7 @@ export const AppContext = createContext();
 function AppContextProvider({ children }) {
   const [auth, setAuth] = useState(false);
   const [name, setName] = useState("");
+  const [userid,setUserId]=useState("")
   const login = (status) => {
     setAuth(status);
   };
@@ -22,14 +23,17 @@ function AppContextProvider({ children }) {
     }
   }, [length]);
 
-  console.log(auth, authUser);
-  const Length = (num) => {
+  
+    const Length = (num) => {
     setLength(Math.abs(num + 1));
   };
   const UserName = (user) => {
     setName(user);
   };
-
+  const UserId=(id)=>{
+    setUserId(id)
+  }
+ 
   return (
     <AppContext.Provider
       value={{
@@ -41,6 +45,8 @@ function AppContextProvider({ children }) {
         loginUser,
         UserName,
         name,
+        UserId,
+        userid
       }}
     >
       {children}

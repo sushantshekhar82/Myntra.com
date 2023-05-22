@@ -2,6 +2,8 @@ import * as types from "./type"
 import axios from "axios"
 //http://localhost:4500/Products
 //http://localhost:8080/user/login
+//https://backend-myntra.onrender.com 
+const url="https://strange-crab-getup.cyclic.app"
 export const loginuser = (email,password) =>async (dispatch) => {
   dispatch({ type: types.USER_LOADING });
   try {
