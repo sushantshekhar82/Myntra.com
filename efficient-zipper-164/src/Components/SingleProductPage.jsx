@@ -98,7 +98,7 @@ function SingleProductPage() {
     });
   }else{
    
-    console.log(duplicate)
+    console.log("duplicate",duplicate)
     if(duplicate.length>0){
       toast({
         title: 'Item already in Cart',

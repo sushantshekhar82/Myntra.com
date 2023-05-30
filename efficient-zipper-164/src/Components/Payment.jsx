@@ -1,6 +1,6 @@
 import React from 'react'
 import { Flex, Grid, GridItem,Select,Text,Button, Divider, Img, useDisclosure } from '@chakra-ui/react' 
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import {
   Accordion,
   AccordionItem,
@@ -31,12 +31,16 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useContext } from 'react'
 import { AppContext } from './AppContextProvider'
+import { useDispatch } from 'react-redux'
+import { deleteall, getCart } from '../Redux/cart/action'
 function Payment() {
   const [captcha,setCaptcha]=useState("")
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const navigate=useNavigate()
-  const {length,Length}=useContext(AppContext);
+ 
+  const {length,Length,userid}=useContext(AppContext)
+  const dispatch=useDispatch()
   const handleOrder=()=>{
       if(captcha!==""){
         if(captcha==="W68HP"){
@@ -47,10 +51,12 @@ function Payment() {
             duration: 5000,
             isClosable: true,
           })
-
+         dispatch(deleteall(userid))
+         console.log("delete all called")
           onOpen();
-          localStorage.removeItem("cart");
-          Length(-1)
+          // localStorage.removeItem("cart");
+          // Length(-1)
+          
          
 
         }else{
@@ -73,6 +79,11 @@ function Payment() {
           isClosable: true,
         })
       }
+  }
+  const handleclose=()=>{
+    dispatch(getCart(userid));
+    
+   
   }
   return (
     <div>
@@ -150,7 +161,7 @@ function Payment() {
 
                 <ModalFooter>
                 <Link to="/">
-                  <Button colorScheme="blue" mr={3} onClick={onClose}>
+                  <Button colorScheme="blue" mr={3} onClick={handleclose}>
                     
                     Close
                   </Button>
@@ -160,10 +171,11 @@ function Payment() {
                    
                     backgroundColor={"#ff3e6c"}
                     color="white"
+                    onClick={handleclose}
                   >
                    Continue Shopping
                   </Button>
-                  </Link>
+                 </Link>
                 </ModalFooter>
               </ModalContent>
             </Modal>

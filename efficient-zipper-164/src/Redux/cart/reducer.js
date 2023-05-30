@@ -96,6 +96,31 @@ export const cartReducer = (state = initialState, { type, payload }) => {
           
         };
       }
+      case types.DELETE_ALL_CART_LOADING: {
+        return {
+          ...state,
+          loading: true,
+          error:false,
+        };
+      }
+      case types.DELETE_ALL_CART_SUCCESS: {
+        return {
+          ...state,
+          loading: false,
+          error:false,
+          
+         totallength:payload.length
+         
+        };
+      }
+      case types.DELETE_ALL_CART_ERROR: {
+        return {
+          ...state,
+          loading: false,
+          error: true
+          
+        };
+      }
       case types.QUANTITY_CART_LOADING: {
         return {
           ...state,

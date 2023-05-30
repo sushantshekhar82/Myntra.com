@@ -108,8 +108,9 @@ export const deleteCart=(id)=>(dispatch)=>{
   .then(response => {
     // Handle the response
     dispatch({type:types.DELETE_CART_SUCCESS})
-    console.log('Response:', response.data);
-  return getCart(userid)
+    console.log('Response delete:', response.data);
+    getId()
+    getCart(userid)
   })
   .catch(error => {
     // Handle the error
@@ -131,6 +132,25 @@ export const deleteCart=(id)=>(dispatch)=>{
   
 
 }
+export const deleteall=(id)=>(dispatch)=>{
+  getId()
+ 
+  dispatch({type:types.DELETE_ALL_CART_LOADING})
+
+  axios.delete(`http://localhost:8080/cart/deleteall/${id}`, { headers })
+  .then(response => {
+    // Handle the response
+    dispatch({type:types.DELETE_ALL_CART_SUCCESS})
+    console.log('Response delete:', response.data);
+    getId()
+    getCart(userid)
+  })
+  .catch(error => {
+    // Handle the error
+    dispatch({type:types.DELETE_ALL_CART_ERROR})
+    console.error('Error:', error);
+  });
+}
 export const quantityinc=(id,updateqty)=>(dispatch)=>{
   getId()
   dispatch({type:types.QUANTITY_CART_LOADING})
@@ -145,7 +165,8 @@ export const quantityinc=(id,updateqty)=>(dispatch)=>{
     .then((res) => { dispatch({type:types.QUANTITY_CART_SUCCESS})
      console.log("deletewala",res)
     
-    return getCart(userid)
+     getId()
+    getCart(userid)
   } )
     
     .catch((err) => dispatch({type:types.QUANTITY_CART_ERROR}));
