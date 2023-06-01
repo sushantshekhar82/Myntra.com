@@ -39,6 +39,7 @@ import { AppContext } from "./AppContextProvider";
 import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart } from "../Redux/cart/action";
+import SearchItem from "./SearchItem";
 const Links = ["Dashboard", "Projects", "Team"];
 
 const NavLink = ({ children }) => (
@@ -182,7 +183,7 @@ console.log("name",name)
           </HStack>
           <HStack display={{ base: "none", md: "none", lg: "flex" }}>
             <div className="search">
-              <Search2Icon />
+              <Search2Icon /> 
               <Form className="d-flex">
                 <Form.Control
                   type="search"
@@ -190,7 +191,8 @@ console.log("name",name)
                   className="me-2 form"
                   aria-label="Search"
                 />
-              </Form>
+              </Form> 
+              {/* <SearchItem/> */}
             </div>
           </HStack>
           <Flex alignItems={"center"} margin={"3px"}>
@@ -273,7 +275,7 @@ console.log("name",name)
             )}
             <Link className="link" to="/cart">
               {" "}
-              <svg
+              {loading? <Spinner size='xs' />: <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -288,9 +290,9 @@ console.log("name",name)
                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                 <line x1="3" y1="6" x2="21" y2="6"></line>
                 <path d="M16 10a4 4 0 0 1-8 0"></path>
-              </svg>
+              </svg>}
             </Link>
-            <Badge
+            {/* <Badge
               ml="1"
               fontSize="0.8em"
               backgroundColor={"red.400"}
@@ -300,7 +302,7 @@ console.log("name",name)
               margin={"-8px"}
             >
               {loading? <Spinner size='xs' />:totallength}
-            </Badge>
+            </Badge> */}
           </Flex>
         </Flex>
 

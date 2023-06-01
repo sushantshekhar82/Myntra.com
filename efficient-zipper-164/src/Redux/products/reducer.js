@@ -29,6 +29,27 @@ export const productReducer = (state = initialState, { type, payload }) => {
         errormsg: payload,
       };
     }
+    case types.FILTER_PRODUCT_LOADING: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case types.FILTER_PRODUCT_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+         products: payload,
+      };
+    }
+    case types.FILTER_PRODUCT_ERROR: {
+      return {
+        ...state,
+        loading: false,
+        error: true,
+        errormsg: payload,
+      };
+    }
     default:
       return state;
   }

@@ -1,6 +1,6 @@
 import React from "react";
 import { store } from "../Redux/store";
-import { getMensData } from "../Redux/products/action";
+import { getMensData, getMensFilterData } from "../Redux/products/action";
 import {
   Divider,
   Flex,
@@ -28,7 +28,7 @@ import Footer from "./Footer";
 import { useState } from "react";
 import "../project.css";
 import { useToast } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import { FaFilter } from "react-icons/fa";
 import FooterRes from "./FooterRes";
@@ -54,37 +54,46 @@ let wishlist=JSON.parse(localStorage.getItem("wishlist"))||[];
 
 
 function Men() {
-  const [value, setValue] = useState("1");
-  const [value1, setValue1] = useState("1");
+  const [value, setValue] = useState("");
+  const [categoryfilter, setCategoryFilter] = useState("");
   const [color, setColor] = useState(false);
+ // const [brandfilter,setBrandFilter]=useState([])
   const toast = useToast();
   const [data, setData] = useState([]);
  // const [loading, setLoading] = useState(false);
   const [item, setItem] = useState(wishlist);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [searchParams, setSearchParam] = useSearchParams();
+  const location = useLocation();
   const [placement, setPlacement] = React.useState("right");
    const {products,loading}=useSelector((store)=>store.product)
    const dispatch = useDispatch();
    useEffect(()=>{
     dispatch(getMensData())
    },[])
-   console.log("products",products)
-  // const getData = async () => {
-  //   setLoading(true);
-  //   let res = await fetch(
-  //     //`https://render-mock-server-7ng4.onrender.com/Products`
-  //     `http://localhost:4500/Products`
-  //   );
-  //   let data = await res.json();
-  //   setData(data);
-  //   setLoading(false);
-  // };
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-  // useEffect(() => {
-  //   localStorage.setItem("wishlist", JSON.stringify(item));
-  // }, [item]);
+   useEffect(()=>{
+    let params={}
+    if(categoryfilter.length){
+      params.category=categoryfilter
+     
+    
+     
+    }
+    setSearchParam(params)
+  },[categoryfilter])
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+   
+    if (products?.length === 0 || location) {
+      const getProductParam = {
+        params: {
+          category: searchParams.getAll("category"),
+          brand:searchParams.getAll("brand")
+        },
+      };
+      dispatch(getMensFilterData(getProductParam));
+    }
+  }, [location.search]);
   if (loading) {
     return (
       <img
@@ -136,7 +145,7 @@ function Men() {
     
     
   };
-
+console.log(searchParams)
   return (
     <div>
       <div>
@@ -167,6 +176,18 @@ function Men() {
             <DrawerHeader borderBottomWidth="1px">Filter By</DrawerHeader>
             <DrawerCloseButton />
             <DrawerBody>
+            <Text as={"b"}>CATEGORIES</Text>
+            <br />
+            <RadioGroup onChange={setCategoryFilter} value={categoryfilter} >
+              <Stack direction="column">
+                <Radio value="">All</Radio>
+                <Radio value="Tshirt">Tshirt</Radio>
+                <Radio value="Jeans">Jeans</Radio>
+                <Radio value="Shoes">Shoes</Radio>
+                <Radio value="Kurta">Kurtas & Kurta sets</Radio>
+                <Radio value="Boxer">Boxers</Radio>
+              </Stack>
+            </RadioGroup>
               <Heading
                 size={"sm"}
                 fontWeight={"bold"}
@@ -276,56 +297,45 @@ function Men() {
           <div style={{ marginLeft: "15px", marginTop: "10px" }}>
             <Text as={"b"}>CATEGORIES</Text>
             <br />
-            <RadioGroup onChange={setValue1} value={value1}>
+            <RadioGroup onChange={setCategoryFilter} value={categoryfilter} >
               <Stack direction="column">
-                <Radio value="1">All</Radio>
-                <Radio value="2">Tshirt</Radio>
-                <Radio value="3">Jeans</Radio>
-                <Radio value="4">Shoes</Radio>
-                <Radio value="5">Kurtas & Kurta sets</Radio>
-                <Radio value="6">Boxers</Radio>
+                <Radio value="">All</Radio>
+                <Radio value="Tshirt">Tshirt</Radio>
+                <Radio value="Jeans">Jeans</Radio>
+                <Radio value="Shoes">Shoes</Radio>
+                <Radio value="Kurta">Kurtas & Kurta sets</Radio>
+                <Radio value="Boxer">Boxers</Radio>
               </Stack>
             </RadioGroup>
           </div>
           <Divider margin={"5px"} />
-
           <div style={{ marginLeft: "15px", marginTop: "10px" }}>
-            <Text as={"b"}>BRAND</Text>
+          <Text as={"b"}>BRAND</Text>
             <br />
-            <Checkbox size="md" colorScheme="pink">
-              Roadster
-            </Checkbox>
-          </div>
-          <div style={{ marginLeft: "15px", marginTop: "2px" }}>
-            <Checkbox size="md" colorScheme="pink">
-              Manyavar
-            </Checkbox>
-          </div>
-          <div style={{ marginLeft: "15px", marginTop: "2px" }}>
-            <Checkbox size="md" colorScheme="pink">
-              WROGN
-            </Checkbox>
-          </div>
-          <div style={{ marginLeft: "15px", marginTop: "2px" }}>
-            <Checkbox size="md" colorScheme="pink">
-              Puma
-            </Checkbox>
-          </div>
-          <div style={{ marginLeft: "15px", marginTop: "2px" }}>
-            <Checkbox size="md" colorScheme="pink">
-              U.S Polo Assn.
-            </Checkbox>
-          </div>
-          <div style={{ marginLeft: "15px", marginTop: "2px" }}>
-            <Checkbox size="md" colorScheme="pink">
-              Tommy Hilfiger
-            </Checkbox>
-          </div>
-          <div style={{ marginLeft: "15px", marginTop: "2px" }}>
-            <Checkbox size="md" colorScheme="pink">
-              Huetrap
-            </Checkbox>
-          </div>
+          <CheckboxGroup
+                colorScheme={"green"}
+                // onChange={setBrandFilter}
+                // value={brandfilter}
+              >
+                <Stack direction={"column"}>
+                  <Checkbox value={"roadster"} colorScheme="green">
+                    Roadster
+                  </Checkbox>
+
+                  <Checkbox value={"Manyavar"} colorScheme="green">
+                    Manyavar
+                  </Checkbox>
+                  <Checkbox value={"WROGN"} colorScheme="green">
+                    WROGN
+                  </Checkbox>
+
+                  <Checkbox value={"puma"} colorScheme="green">
+                    Puma
+                  </Checkbox>
+                 
+                </Stack>
+              </CheckboxGroup>
+              </div>
           <Divider margin={"5px"} />
           <div style={{ marginLeft: "15px", marginTop: "10px" }}>
             <Text as={"b"}>PRICE</Text>
@@ -510,7 +520,7 @@ function Men() {
               >
                 <div className="zoom">
                 <Link to={`/Products/${el._id}`}>
-                  <img  src={el.imageLink} />
+                  <Img  src={el.imageLink} objectFit={'contain'}/>
                   </Link>
                 </div>
                 <div className="rating">
