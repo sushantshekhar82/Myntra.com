@@ -49,7 +49,7 @@ const dispatch=useDispatch()
  try {
   
     dispatch(loginuser(email,password)).then((res)=>{
-        console.log(res)
+      
         if(res.msg=="Login successful"){
    toast({
     title: "Login successful" ,
@@ -61,7 +61,7 @@ const dispatch=useDispatch()
  localStorage.setItem("token",res.token)
  dispatch(getCart(userid))
    navigate("/") 
-
+window.location.reload()
  
 
         }

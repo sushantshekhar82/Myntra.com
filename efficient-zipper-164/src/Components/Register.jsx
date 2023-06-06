@@ -48,7 +48,7 @@ const dispatch=useDispatch()
   if(name!=="" && email!=="" && password!==""){
  try {
     dispatch(postuser(name,email,password)).then((res)=>{
-        console.log(res)
+       
         if(res.msg=="already registered please login"){
    toast({
     title: "User already registered Please Login" ,

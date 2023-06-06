@@ -137,7 +137,7 @@ export const deleteall=(id)=>(dispatch)=>{
  
   dispatch({type:types.DELETE_ALL_CART_LOADING})
 
-  axios.delete(`https://strange-crab-getup.cyclic.app/cart/deleteall/${id}`, { headers })
+  axios.delete(`http://localhost:8080/cart/deleteall/${id}`, { headers })
   .then(response => {
     // Handle the response
     dispatch({type:types.DELETE_ALL_CART_SUCCESS})

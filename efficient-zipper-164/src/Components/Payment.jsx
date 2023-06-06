@@ -52,7 +52,7 @@ function Payment() {
             isClosable: true,
           })
          dispatch(deleteall(userid))
-         console.log("delete all called")
+         
           onOpen();
           // localStorage.removeItem("cart");
           // Length(-1)

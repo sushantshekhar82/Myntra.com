@@ -7,6 +7,7 @@ import "../project.css";
 import Footer from "./Footer";
 import { home1, home2, home3 } from "../HomeData";
 import FooterRes from "./FooterRes";
+import { Link } from "react-router-dom";
 function Home() {
   const [data, setData] = useState(home1);
   const [data1, setData1] = useState(home2);
@@ -103,8 +104,9 @@ function Home() {
                   justifyContent: "center",
                   padding: "5px",
                 }}
-              >
+              > <Link to="/men">
                 <img src={`${link}`} style={{ marginTop: "2px" }} />
+                </Link>
               </GridItem>
             ))}
           </Grid>

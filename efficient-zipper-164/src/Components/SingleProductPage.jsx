@@ -57,9 +57,9 @@ function SingleProductPage() {
       
     },[param.id])
     useEffect(()=>{
-      console.log("before",cart)
+     
     dispatch(getCart(userid))
-    console.log("after",cart)
+   
     },[count])
 // useEffect(()=>{
 //   let localcart=JSON.parse( localStorage.getItem("cart"))
@@ -170,7 +170,7 @@ function SingleProductPage() {
 //   }));
 // };
 
-console.log("totlalllll",totallength)
+
   return (
     <div>
         <div><Breadcrumb marginLeft={"15px"} spacing='8px' separator={<ChevronRightIcon color='gray.500' />}>

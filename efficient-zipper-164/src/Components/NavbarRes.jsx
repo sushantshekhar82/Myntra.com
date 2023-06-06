@@ -85,25 +85,25 @@ useEffect(()=>{
       })
       .catch((err) => console.log(err));
 },[token])
-useEffect(()=>{
-  fetch(`https://strange-crab-getup.cyclic.app/cart/${userid}`, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      console.log("reducer cart",res);
+// useEffect(()=>{
+//   fetch(`https://strange-crab-getup.cyclic.app/cart/${userid}`, {
+//     headers: {
+//       Authorization: `Bearer ${localStorage.getItem("token")}`,
+//     },
+//   })
+//     .then((res) => res.json())
+//     .then((res) => {
+//       console.log("reducer cart",res);
       
 
       
      
     
-    })
-    .catch((err) => console.log(err.message));
+//     })
+//     .catch((err) => console.log(err.message));
 
 
-},[token])
+// },[token])
 
 
   const handleLogout = () => {
@@ -114,7 +114,7 @@ useEffect(()=>{
     window.location.reload()
     navigate("/")
   };
-console.log("name",name)
+// console.log("name",name)
   return (
     <>
       <Box

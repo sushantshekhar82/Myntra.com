@@ -32,12 +32,12 @@ function CheckOut() {
    const navigate=useNavigate()
    const dispatch=useDispatch()
    useEffect(()=>{
-    console.log('get address called')
+   
     dispatch(getAddress(userid))
     setAddressData(useraddressdata)
    },[])
    useEffect(()=>{
-    console.log('get address called')
+   
     dispatch(getAddress(userid))
     setAddressData(useraddressdata)
    },[count])
@@ -77,7 +77,7 @@ function CheckOut() {
       return <img style={{display:"flex",alignItems:"center",justifyContent:"center",margin:"auto"}} width="300px" height="300px"  src="https://www.appcoda.com/learnswiftui/images/animation/swiftui-animation-4.gif" alt="progress"/>
   
     }
-    console.log(useraddressdata)
+   
   return (
     <div>
     {useraddressdata===undefined||useraddressdata.length===0? 

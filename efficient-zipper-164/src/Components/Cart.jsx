@@ -56,9 +56,9 @@ function Cart() {
   
 }
 useEffect(()=>{
-  console.log("before",cart)
+ 
 dispatch(getCart(userid))
-console.log("after",cart)
+
 },[count])
   
 
@@ -74,7 +74,7 @@ console.log("after",cart)
   }
   useEffect(()=>{
  dispatch(getCart(userid))
-console.log("useeffect all")
+
   },[])
 
   const handleCheckout=()=>{
@@ -83,7 +83,7 @@ console.log("useeffect all")
   if(loading){
     return <img style={{display:"flex",alignItems:"center",justifyContent:"center",margin:"auto"}} width="300px" height="300px"  src="https://www.appcoda.com/learnswiftui/images/animation/swiftui-animation-4.gif" alt="progress"/>
   }
- console.log("cart page me",totalmoney)
+
   return (
     <div>
      {totallength===0?

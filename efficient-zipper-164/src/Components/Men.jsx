@@ -145,7 +145,7 @@ function Men() {
     
     
   };
-console.log(searchParams)
+//console.log(searchParams)
   return (
     <div>
       <div>
